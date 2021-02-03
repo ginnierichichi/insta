@@ -47,9 +47,9 @@
                 <div class="object-cover"> <img src=" {{ asset('images/sunflower.jpg') }}" ></div>
                 <div> <img src=" {{ asset('images/kingfisher.jpg') }}" ></div>
                 <div> <img src=" {{ asset('images/seeds.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/sunflower.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/kingfisher.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/seeds.jpg') }}"></div>
+                <div> <img src=" {{ asset('images/purple.jpg') }}" ></div>
+                <div> <img src=" {{ asset('images/marigold.jpg') }}" ></div>
+                <div> <img src=" {{ asset('images/flower.jpg') }}"></div>
             </div>
         </div>
     </div>
