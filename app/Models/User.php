@@ -59,4 +59,21 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function avatarUrl()
+    {
+        return  $this->avatar
+            ? Storage::disk('avatars')->url($this->avatar)
+            : 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

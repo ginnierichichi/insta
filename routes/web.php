@@ -22,7 +22,7 @@ Route::get('/', function () {
 //    dd(request('user'));
 //});
 
-Route::get('profile', Profile::class)->name('profile');
+Route::get('profile/{user}', Profile::class)->name('profile');
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //    return view('dashboard');

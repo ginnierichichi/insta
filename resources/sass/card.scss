@@ -1,0 +1,14 @@
+.card {
+    @apply .bg-gray-200 .p-5 .rounded-lg .shadow-lg;
+}
+.grid {
+    grid-template-columns: repeat(12, 1fr);
+}
+.grid a img {
+    transition: all .2s ease-in;
+    filter: grayscale(100%);
+}
+
+.grid a:hover img {
+    filter: grayscale(0);
+}
