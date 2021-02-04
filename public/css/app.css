@@ -39022,6 +39022,11 @@ readers do not read off random characters that represent icons */
   --tw-ring-color: rgba(156, 163, 175, var(--tw-ring-opacity));
 }
 
+.fontAwesome {
+  font-family: Helvetica, "FontAwesome", sans-serif;
+  color: black;
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;

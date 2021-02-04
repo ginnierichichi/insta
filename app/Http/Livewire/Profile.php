@@ -12,11 +12,13 @@ class Profile extends Component
     use WithFileUploads;
 
     public $post;
+    public $editing;
     public $newAvatar;
     public User $user;
-    public $editing;
-    public $showCreateModal = false;
+    public $search = '';
     public $showEditModal = false;
+    public $showCreateModal = false;
+
 
     protected $rules = [
       'editing.title' => 'required',
@@ -90,7 +92,7 @@ class Profile extends Component
 
         return view('livewire.profile', [
 
-            'users' => User::all(),
+            'users' => User::search('name', $this->search),
         ]);
     }
 }

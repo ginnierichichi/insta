@@ -8,6 +8,14 @@
                     <img src=" {{ asset('images/logo.png') }}" width="50px" class="border-r-2 pr-2">
                     <img src=" {{ asset('images/logofont.png') }}" width="100px">
                 </div>
+                <!------------ Search ----------->
+                <div class="flex items-center">
+                    <x-input.text type="text"
+                                  wire:model="search"
+                                  style="font-family:'Font Awesome 5 Brands'; color: black; !important"
+                                  placeholder="&#xf002; Search..." />
+
+                </div>
 
                 <!-- Navigation Links -->
                 <div class="flex justify-end">
