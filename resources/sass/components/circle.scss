@@ -1,0 +1,5 @@
+.circle {
+    &:hover {
+         @apply ring-2 ring-gray-400 ring-offset-2 ring-offset-gray-100;
+     }
+}

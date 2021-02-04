@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex w-full justify-between">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center space-x-2">
                     <img src=" {{ asset('images/logo.png') }}" width="50px" class="border-r-2 pr-2">
@@ -10,10 +10,27 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->id ]) }}" :active="request()->routeIs('profile')">
-                        Profile
-                    </x-jet-nav-link>
+                <div class="flex justify-end">
+                    <div class="hidden sm:-my-px sm:ml-4 sm:flex justify-end">
+                        <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->id ]) }}" :active="request()->routeIs('profile')">
+                            <i class="fas fa-home text-2xl"></i>
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden sm:-my-px sm:ml-4 sm:flex">
+                        <x-jet-nav-link href="#" :active="request()->routeIs('messages')">
+                            <i class="far fa-paper-plane text-2xl"></i>
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden sm:-my-px sm:ml-4 sm:flex">
+                        <x-jet-nav-link href="#" :active="request()->routeIs('discover')">
+                            <i class="far fa-compass text-2xl"></i>
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden sm:-my-px sm:ml-4 sm:flex">
+                        <x-jet-nav-link href="#" :active="request()->routeIs('notifications')">
+                            <i class="far fa-heart text-2xl"></i>
+                        </x-jet-nav-link>
+                    </div>
                 </div>
             </div>
 
@@ -79,7 +96,7 @@
                             @else
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
+                                         <img src=" {{ asset('avatars/'.auth()->user()->avatar) }}" class="circle border rounded-full w-10 h-10 object-contain">
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -96,7 +113,31 @@
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                <div class="flex items-center space-x-2">
+                                    <i class="far fa-user-circle"></i>
+                                    <span>{{ __('Profile') }}</span>
+                                </div>
+
+                            </x-jet-dropdown-link>
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                <div class="flex items-center space-x-2">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>Saved</span>
+                                </div>
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </div>
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-sync-alt"></i>
+                                    <span>Switch Account</span>
+                                </div>
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

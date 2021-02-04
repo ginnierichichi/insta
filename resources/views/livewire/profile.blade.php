@@ -5,7 +5,11 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <!----- Button to add an image ------>
             <div class="flex justify-end pt-6 pr-6">
-                <x-button.link wire:click="create"> <i class="far fa-plus-square text-2xl text-gray-700 hover:text-insta"></i></x-button.link>
+                @if($user->id === auth()->id())
+                    <x-button.link wire:click="create">
+                        <i class="far fa-plus-square text-2xl text-gray-700 hover:text-insta"></i>
+                    </x-button.link>
+                @endif
             </div>
 
 
@@ -13,13 +17,28 @@
             <div class="grid grid-cols-3 gap-4 pt-4 border-b">
                 <div class="pb-10 pl-20 flex justify-center items-center" :error="$errors->first('newAvatar')">
 {{--                    <img src=" {{ auth()->user()->avatarUrl() }}" alt="Profile Photo" width="200px" class="rounded-full">--}}
-                 <img src=" {{ asset('images/profile.jpg') }}" width="200px" class="rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100">
+                    @if($user->avatar === auth()->user()->avatar)
+                        <img src=" {{ asset('avatars/'.auth()->user()->avatar) }}" width="200px" class=" rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100 w-52 h-52 object-contain">
+                    @else
+                        <img src="{{ asset('images/default.png') }}">
+                    @endif
                 </div>
                 <div class="p-10 col-span-2" >
-                    <div class="flex items-center space-x-4">
-                        <h1>@ {{ $user->username }}</h1>
-
-                        <x-button.primary class="text-xs" wire:click="edit">Edit Profile</x-button.primary>
+                    <div class="flex items-center space-x-6">
+                        <div class="flex items-center">
+                            <h1>@ {{ $user->username }}</h1>
+                            <img src="https://img.icons8.com/color/48/000000/instagram-verification-badge.png" width="20px"/>
+                        </div>
+                    @if($user->id === auth()->id())
+                        <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
+                    @else
+                        <div class="space-x-1 pl-6">
+                            <x-button.secondary class="text-xs">Message</x-button.secondary>
+                            <x-button.secondary class="text-xs"><i class="fas fa-user-check"></i></x-button.secondary>
+                            <x-button.secondary class="text-xs"><i class="fas fa-sort-down"></i></x-button.secondary>
+                            <x-button.link class="text-xs"><i class="fas fa-ellipsis-h"></i></x-button.link>
+                        </div>
+                    @endif
                     </div>
                     <div class="flex items-center space-x-4 pt-4 text-sm">
                         <h2><strong>150</strong> posts</h2>
@@ -34,22 +53,60 @@
                 </div>
 
             </div>
-<!------------ Buttons Section ----------->
-            <div>
-                <div></div>
-                <div></div>
-                <div></div>
+<!------------ Buttons Section for posts & tagged posts----------->
+            <div class=" flex items-center justify-center space-x-8 pb-4">
+                <div >
+                    <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->id ]) }}" :active="request()->routeIs('profile')">
+                        <div class="flex items-center space-x-2 pt-4">
+                            <i class="fab fa-buromobelexperte"></i>
+                            <span>POSTS</span>
+                        </div>
+                    </x-jet-nav-link>
+                </div>
+                <div>
+                    <x-jet-nav-link href="#" :active="request()->routeIs('igtv')">
+                        <div class="flex items-center space-x-2 pt-4">
+                            <i class="fab fa-buromobelexperte"></i>
+                            <span>IGTV</span>
+                        </div>
+                    </x-jet-nav-link>
+                </div>
+                <div>
+                    <x-jet-nav-link href="#" :active="request()->routeIs('saved')">
+                        <div class="flex items-center space-x-2 pt-4">
+                            <i class="far fa-bookmark"></i>
+                            <span>SAVED</span>
+                        </div>
+                    </x-jet-nav-link>
+                </div>
+                <div>
+                    <x-jet-nav-link href="#" :active="request()->routeIs('tagged')">
+                        <div class="flex items-center space-x-1 pt-4">
+                            <i class="fas fa-user-tag"></i>
+                            <span>TAGGED</span>
+                        </div>
+
+                    </x-jet-nav-link>
+                </div>
             </div>
 
 <!------------ Picture Section ----------->
-
-            <div class="grid grid-cols-3 gap-4 px-4 pt-6 container">
-                <div class="object-cover"> <img src=" {{ asset('images/sunflower.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/kingfisher.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/seeds.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/purple.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/marigold.jpg') }}" ></div>
-                <div> <img src=" {{ asset('images/flower.jpg') }}"></div>
+<! ----- This will be in a foreach loop & each image when you hover over it will show the number of likes and no. of comments.
+            When clicked on it will bring up a pop up modal of the image, description, likes & a comments section ---------->
+            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">
+                @forelse($user->posts as $post)
+                    <div >
+                        <img src="{{ asset('/posts/'.$post->image) }}" >
+                        <div class="hidden">
+                            <i class="fas fa-comment fa-flip-horizontal text-gray-700"></i>
+                            <i class="fas fa-heart text-gray-700"></i>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center p-10 text-xl">
+                        No Posts Yet...
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -88,18 +145,18 @@
         <x-slot name="content">
             <div class="grid grid-cols-2 gap-4 pt-4">
 
-                <x-input.group label="Photo" for="photo" :error="$errors->first('newPhoto')">
-                    <x-input.filepond wire:model="newPhoto" />
+                <x-input.group label="Photo" for="post.image" :error="$errors->first('post.image')">
+                    <input type="file" wire:model="post.image" />
                 </x-input.group>
 
-                <x-input.group for="description" label="Description" :error="$errors->first('editing.description')">
-                    <x-input.textarea wire:model="editing.description" id="description" placeholder="write your thoughts here" />
+                <x-input.group for="post.description" label="Description" :error="$errors->first('post.description')">
+                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />
                 </x-input.group>
             </div>
         </x-slot>
         <x-slot name="footer">
             <x-button.secondary>Cancel</x-button.secondary>
-            <x-button.primary>Save</x-button.primary>
+            <x-button.primary wire:click="newPost">Save</x-button.primary>
         </x-slot>
     </x-modal.dialog>
 </div>

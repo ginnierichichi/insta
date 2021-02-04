@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Post;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -10,25 +11,27 @@ class Profile extends Component
 {
     use WithFileUploads;
 
-    public $newPhoto;
+    public $post;
     public $newAvatar;
     public User $user;
-    public \App\Models\Profile $editing;
+    public $editing;
     public $showCreateModal = false;
     public $showEditModal = false;
 
     protected $rules = [
       'editing.title' => 'required',
       'editing.description' => 'required',
+      'newAvatar' => 'nullable|image',
     ];
 
     public function mount(User $user)
     {
-        $this->user = $user;
+        $this->user = $user->load('posts');
     }
 
     public function edit(\App\Models\Profile $bio)
     {
+        $this->resetErrorBag();
         $this->editing = $bio;
         $this->showEditModal = true;
     }
@@ -42,30 +45,51 @@ class Profile extends Component
     {
         $this->validate();
 
+
+        if ($this->newAvatar) {
+            $filename = $this->newAvatar->store('/', 'avatars');
+
+            $this->user->avatar = $filename;
+
+            $this->user->save();
+        }
+
+
         $this->editing->save();
 
         $this->showEditModal = false;
 
-        $profileData = $this->validate([
-            'newAvatar' => 'image',
-            'newPhoto' => 'image',
+//        $this->showEdotoModal = false;
+    }
+
+    public function newPost()
+    {
+        $this->validate([
+            'post.image' => 'required',
+            'post.description' => 'required',
         ]);
 
-        $filename = $this->newAvatar->store('/', 'avatars');
+       $image =  $this->post['image']->store('/', 'posts');
 
-        $postname =  $this->newPhoto->store('/', 'posts');
+        $post= new Post;
 
-        auth()->user()->update([
-            'avatar' => $filename,
-            'posts' => $postname
-        ]);
+        $post->image = $image;
+        $post->caption = $this->post['description'];
+        $post->user_id =$this->user->id;
 
-        $this->showAvatarModal = false;
+        $post->save();
+
+        $this->showCreateModal = false;
     }
 
     public function render()
     {
+//        $this->user = User::where('id', $this->user->id)->with('posts')->firstOrFail();
+        $this->user = User::findOrFail($this->user->id);
+        $this->user->load('posts');
+
         return view('livewire.profile', [
+
             'users' => User::all(),
         ]);
     }
