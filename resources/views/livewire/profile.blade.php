@@ -92,24 +92,29 @@
 
 <!------------ Picture Section ----------->
 <! ----- This will be in a foreach loop & each image when you hover over it will show the number of likes and no. of comments.
-            When clicked on it will bring up a pop up modal of the image, description, likes & a comments section ---------->
-            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">
-                @forelse($user->posts as $post)
-                    <div >
-                        <img src="{{ asset('/posts/'.$post->image) }}" >
-                        <div class="hidden">
-                            <i class="fas fa-comment fa-flip-horizontal text-gray-700"></i>
-                            <i class="fas fa-heart text-gray-700"></i>
-                        </div>
-                    </div>
-                @empty
-                    <div class="text-center p-10 text-xl">
-                        No Posts Yet...
-                    </div>
-                @endforelse
+            When clicked on it will bring up a pop up modal of the image, description, likes & a comments section
+            Default images for now to save on errors! ---------->
+{{--            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">--}}
+            <x-gallery />
+                <!-- End of container -->
+{{--                <div class="doc">--}}
+{{--                    @forelse($user->posts as $post)--}}
+{{--                        <div >--}}
+{{--                            <img src="{{ asset('/posts/'.$post->image) }}" >--}}
+{{--                            <div class="links">--}}
+{{--                                <a href=""><i class="fa fa-heart"></i><span></span></a>--}}
+{{--                                <a href=""><i class="fa fa-comment"></i><span></span></a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @empty--}}
+{{--                        <div class="text-center p-10 text-xl">--}}
+{{--                            No Posts Yet...--}}
+{{--                        </div>--}}
+{{--                    @endforelse--}}
+{{--                </div>--}}
             </div>
         </div>
-    </div>
+{{--    </div>--}}
 
     <!-------- Edit Profile Modal -------------->
     <form wire:submit.prevent="save">
@@ -160,3 +165,4 @@
         </x-slot>
     </x-modal.dialog>
 </div>
+

@@ -9,13 +9,7 @@
                     <img src=" {{ asset('images/logofont.png') }}" width="100px">
                 </div>
                 <!------------ Search ----------->
-                <div class="flex items-center">
-                    <x-input.text type="text"
-                                  wire:model="search"
-                                  style="font-family:'Font Awesome 5 Brands'; color: black; !important"
-                                  placeholder="&#xf002; Search..." />
-
-                </div>
+                @livewire('search-dropdown')
 
                 <!-- Navigation Links -->
                 <div class="flex justify-end">

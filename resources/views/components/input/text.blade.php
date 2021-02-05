@@ -8,6 +8,6 @@
     @endif
     <input
         {{$attributes}}
-        class="{{ $leadingAddOn ? ' rounded-r-md' : '' }} flex-1 form-input p-2 block w-full rounded-md transition duration-150 ease-in-out sm:text-md sm:leading-5" />
+        class="{{ $leadingAddOn ? ' rounded-r-md' : '' }} flex-1 form-input p-2 fas block w-full rounded-md transition duration-150 ease-in-out sm:text-md sm:leading-5" />
 </div>
 

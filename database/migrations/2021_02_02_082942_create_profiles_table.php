@@ -28,6 +28,13 @@ class CreateProfilesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
         });
+
+        DB::table('profiles')->insert([
+            'user_id' => 1,
+            'title' => 'Ginnie Richichi',
+            'description' => 'Junior Software dev. Loving life, learning how to code.',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 
     /**
