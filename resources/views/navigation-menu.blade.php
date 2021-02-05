@@ -6,10 +6,14 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center space-x-2">
                     <img src=" {{ asset('images/logo.png') }}" width="50px" class="border-r-2 pr-2">
-                    <img src=" {{ asset('images/logofont.png') }}" width="100px">
+                    <a href="{{ route('feed') }}" >
+                        <img src=" {{ asset('images/logofont.png') }}" width="100px">
+                    </a>
                 </div>
                 <!------------ Search ----------->
-                @livewire('search-dropdown')
+                <div class="flex justify-end">
+                    @livewire('search-dropdown')
+                </div>
 
                 <!-- Navigation Links -->
                 <div class="flex justify-end">

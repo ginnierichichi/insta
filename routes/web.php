@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\NewsFeed;
 use App\Http\Livewire\Profile;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,8 @@ Route::get('/', function () {
 //});
 
 Route::get('profile/{user}', Profile::class)->name('profile');
+Route::get('feed', NewsFeed::class)->name('feed');
 
-//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//    return view('dashboard');
-//})->name('dashboard');
+//Route::middleware(['auth:sanctum', 'verified'])->get('/feed', function () {
+//    return view('livewire/news-feed');
+//})->name('feed');
