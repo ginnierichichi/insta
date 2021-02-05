@@ -10,7 +10,10 @@
             <li class="border-b border-gray-300">
                 <a href="{{ route('profile', $contact->id) }}"
                                class="text-left block hover:bg-gray-100 w-full p-3">
-                    {{ $contact->name }}
+                    <div class="flex items-center">
+                        <img src=" {{$contact->avatar ? asset('avatars/'.$contact->avatar) : asset('images/default.png') }}" class=" rounded-full w-10 h-10">
+                        <div class="pl-4">{{ $contact->name }}</div>
+                    </div>
                 </a>
             </li>
             @empty
