@@ -95,8 +95,35 @@
             When clicked on it will bring up a pop up modal of the image, description, likes & a comments section
             Default images for now to save on errors! ---------->
 {{--            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">--}}
-            <x-gallery />
+{{--            <x-gallery />--}}
                 <!-- End of container -->
+
+            <div class="container">
+                <div class="gallery">
+                    @forelse($user->posts as $post)
+                    <div class="gallery-item" tabindex="0">
+                            <img src="{{ asset('/posts/'.$post->image) }}"
+                             class="gallery-image" alt="">
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
+                                        class="fas fa-heart" aria-hidden="true"></i> 56
+                                </li>
+                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
+                                        class="fas fa-comment" aria-hidden="true"></i> 2
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    @empty
+                        <div class="text-center p-10 text-xl">
+                            No Posts Yet...
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+
+
 {{--                <div class="doc">--}}
 {{--                    @forelse($user->posts as $post)--}}
 {{--                        <div >--}}
