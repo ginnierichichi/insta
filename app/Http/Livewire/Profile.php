@@ -40,6 +40,7 @@ class Profile extends Component
 
     public function create()
     {
+        $this->resetErrorBag();
         $this->showCreateModal = true;
     }
 
@@ -60,6 +61,8 @@ class Profile extends Component
         $this->editing->save();
 
         $this->showEditModal = false;
+
+
 
 //        $this->showEdotoModal = false;
     }

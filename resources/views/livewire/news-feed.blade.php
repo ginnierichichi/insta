@@ -24,6 +24,7 @@
             <div>Account</div>
 
             <div>Suggestions For you</div>
+            <x-friends-list />
         </div>
     </div>
 </div>
