@@ -3,27 +3,44 @@
         <div class="grid-cols-1 border border-red-500 ">1</div>
         <div class="col-span-2 border">
             <div class="bg-white shadow-lg rounded-lg"><img src="{{ asset('images/stories.png') }}"></div>
-            <div class=" rounded-lg mt-10">
+            <div class=" rounded-lg mt-10 text-lg">
                 @foreach($posts as $post)
                     <div class="my-4 bg-white shadow-lg rounded-lg">
-                        <div class="flex items-center p-8 border">
-                            <img src=" {{$post->avatar ? asset('avatars/'.$post->avatar) : asset('images/default.png') }}" class=" rounded-full w-10 h-10">
-                            <div class="pl-4">{{ $post->name }}</div>
+                        <div class="flex items-center pl-8 py-4 border">
+                            <img src=" {{$post->user->avatar ? asset('avatars/'.$post->user->avatar) : asset('images/default.png') }}" class=" rounded-full w-16 h-16">
+{{--                            @dd($post->name)--}}
+                            <div class="pl-4 text-2xl"><strong>{{ $post->user->name }}</strong></div>
+{{--                            @dd($posts)--}}
+
                         </div>
                         <div>
-                            <img src="{{ asset('images/forgetme.jpg') }}">
+                            <img src="{{ asset('/posts/'.$post->image) }}">
                         </div>
-                        <div class="border p-6">LIKES</div>
-                        <div class="border p-20"></div>
+                        <div class="border pl-8 py-4">
+                            <div class="space-x-4">
+                                <i class="far fa-heart text-4xl"></i>
+                                <i class="far fa-comment text-4xl fa-rotate-180"></i>
+                                <i class="far fa-paper-plane text-4xl"></i>
+                            </div>
+                            <div>
+                                <div><strong>21 likes</strong></div>
+                            </div>
+                        </div>
+                        <div class="border py-4 pl-8">
+                            <div class="flex items-center space-x-6">
+                                <div><strong>{{ $post->user->username }}</strong></div>
+                                <div>{{ $post->caption }}</div>
+                            </div>
+                            <div class="text-gray-600 text-sm pt-4">
+                                7 HOURS AGO
+                            </div>
+                        </div>
                         <div class="border p-8">ADD COMMENT</div>
                     </div>
                 @endforeach
             </div>
         </div>
-        <div class=" grid-cols-1 border">
-            <div>Account</div>
-
-            <div>Suggestions For you</div>
+        <div class=" grid-cols-1 border space-x-8 space-y-8">
             <x-friends-list />
         </div>
     </div>

@@ -71,6 +71,14 @@ class User extends Authenticatable
             ? Storage::disk('avatars')->url($this->avatar)
             : 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
+    public function timeline()
+    {
+        $friends = $this->follows()->pluck('id');
+
+        return Post::whereIn('user_id', $friends)
+            ->orWhere('user_id', $this->id)
+            ->latest()->get();
+    }
 
     public function profile()
     {

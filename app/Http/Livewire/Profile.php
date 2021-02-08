@@ -95,7 +95,7 @@ class Profile extends Component
 
         return view('livewire.profile', [
 
-            'users' => User::search('name', $this->search),
+            'users' => User::all(),
         ]);
     }
 }
