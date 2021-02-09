@@ -15,7 +15,6 @@ trait Followable
 //        return Follow::where('user_id', $this->id)->get();
 //    }
 
-
     public function toggleFollow(User $user)
     {
         if ($this->isFollowing()) {

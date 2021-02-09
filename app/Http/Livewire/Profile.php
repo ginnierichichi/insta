@@ -76,18 +76,6 @@ class Profile extends Component
         auth()->user()->toggleFollow($user);
     }
 
-//    public function followUser(User $user)
-//    {
-//
-//        if(!in_array($user->id, auth()->user()->follows->toArray())) {
-//            Follow::create(['user_id' => auth()->id(), 'following_user_id' => $user->id]);
-//        } else {
-//            auth()->user()->follows()->delete();
-//        }
-//
-//        return back();
-//    }
-
     public function newPost()
     {
         $this->validate([

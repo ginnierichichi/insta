@@ -31,8 +31,7 @@
                         </div>
                     @if($user->id === auth()->id())
                         <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
-                    @elseif(auth()->user()->following($user))
-{{--                    @elseif(in_array($user->id, auth()->user()->follows()->toArray()))--}}
+                    @elseif(auth()->user()->isFollowing())
                         <div class="space-x-1 pl-6">
                             <x-button.secondary class="text-xs">Message</x-button.secondary>
                             <x-button.secondary class="text-xs" wire:click="followUser({{ $user->id }})"><i class="fas fa-user-check"></i></x-button.secondary>
@@ -153,7 +152,7 @@
             <x-slot name="title">Update Profile</x-slot>
 
             <x-slot name="content">
-                <div class="space-y-4">
+                <div class="space-y-8">
                     <x-input.group for="title" label="Name" :error="$errors->first('editing.title')">
                         <x-input.text wire:model="editing.title" id="title" placeholder="Name" />
                     </x-input.group>
@@ -169,7 +168,7 @@
             </x-slot>
             <x-slot name="footer">
                 <x-button.secondary wire:click="$set('showEditModal', false)">Cancel</x-button.secondary>
-                <x-button.primary type="submit">Save</x-button.primary>
+                <x-button.secondary type="submit">Save</x-button.secondary>
             </x-slot>
         </x-modal.dialog>
     </form>
