@@ -6,31 +6,37 @@ namespace App\Models;
 
 trait Followable
 {
-//    public function following(User $user)
+    public function isFollowing()
+    {
+        return $this->following()->exists();
+    }
+//    public function following()
 //    {
-//        return $this->follows()
-//            ->where('following_user_id', $user->id)
-//            ->exists();
+//        return Follow::where('user_id', $this->id)->get();
 //    }
-//
-//    public function follow(User $user)
-//    {
-//        return $this->follows()->save($user);
-//    }
-//
-//    public function unfollow(User $user)
-//    {
-//        return $this->follows()->detach($user);
-//    }
-//
-//    public function toggleFollow(User $user)
-//    {
-//        if ($this->following($user)) {
-//            return $this->unfollow($user);
-//        }
-//
-//        return $this->follow($user);
-//    }
+
+
+    public function toggleFollow(User $user)
+    {
+        if ($this->isFollowing()) {
+            return $this->following()->detach($user);
+        }
+
+        return $this->following()->save($user);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, Follow::class, 'user_id', 'following_user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, Follow::class, 'following_user_id', 'user_id');
+    }
 //
 //    public function follows()
 //    {

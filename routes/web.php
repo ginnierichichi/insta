@@ -15,16 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+//Route::get('/', function () {
+//    return view('auth/login');
+//});
 
 //Route::get('/profile/{user}', function () {
 //    dd(request('user'));
 //});
 
+Route::middleware('auth')->group(function () {
 Route::get('profile/{user:username}', Profile::class)->name('profile');
-Route::get('feed', NewsFeed::class)->name('feed');
+Route::get('/', NewsFeed::class)->name('feed');
+});
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/feed', function () {
 //    return view('livewire/news-feed');

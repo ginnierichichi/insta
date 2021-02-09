@@ -31,8 +31,8 @@
                         </div>
                     @if($user->id === auth()->id())
                         <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
-{{--                    @elseif(auth()->user()->follows($user))--}}
-                    @elseif(in_array($user->id, auth()->user()->follows()->toArray()))
+                    @elseif(auth()->user()->following($user))
+{{--                    @elseif(in_array($user->id, auth()->user()->follows()->toArray()))--}}
                         <div class="space-x-1 pl-6">
                             <x-button.secondary class="text-xs">Message</x-button.secondary>
                             <x-button.secondary class="text-xs" wire:click="followUser({{ $user->id }})"><i class="fas fa-user-check"></i></x-button.secondary>
@@ -44,9 +44,9 @@
                     @endif
                     </div>
                     <div class="flex items-center space-x-4 pt-4 text-sm">
-                        <h2><strong>150</strong> posts</h2>
-                        <h2><strong>20K</strong> followers</h2>
-                        <h2><strong>1000</strong> following</h2>
+                        <h2><strong>150</strong>{{ $user->posts->count() }}</h2>
+                        <h2><strong>{{ $user->followers()->count() }}</strong> followers</h2>
+                        <h2><strong></strong> {{ $user->following()->count() }} following</h2>
                     </div>
                     <div class="pt-4">
                         <div><strong>{{ $user->profile->title }}</strong></div>

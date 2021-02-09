@@ -65,26 +65,28 @@ class Profile extends Component
 
 //        $this->showEdotoModal = false;
     }
-//
+
+    /**
+     * If the user is currently following
+     *
+     * @param User $user
+     */
+    public function followUser(User $user)
+    {
+        auth()->user()->toggleFollow($user);
+    }
+
 //    public function followUser(User $user)
 //    {
-//        auth()->user()->toggleFollow($user);
+//
+//        if(!in_array($user->id, auth()->user()->follows->toArray())) {
+//            Follow::create(['user_id' => auth()->id(), 'following_user_id' => $user->id]);
+//        } else {
+//            auth()->user()->follows()->delete();
+//        }
 //
 //        return back();
 //    }
-
-    public function followUser(User $user)
-    {
-//        dd($user);
-
-        if(!in_array($user->id, auth()->user()->follows->toArray())) {
-            Follow::create(['user_id' => auth()->id(), 'following_user_id' => $user->id]);
-        } else {
-            auth()->user()->follows()->delete();
-        }
-
-        return back();
-    }
 
     public function newPost()
     {
@@ -111,8 +113,6 @@ class Profile extends Component
 //        $this->user = User::where('id', $this->user->id)->with('posts')->firstOrFail();
         $this->user = User::findOrFail($this->user->id);
         $this->user->load('posts');
-
-        dd($this->user->follows);
 
         return view('livewire.profile', [
 
