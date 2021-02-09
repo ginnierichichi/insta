@@ -26,7 +26,7 @@ trait Followable
 
     public function following()
     {
-        return $this->belongsToMany(User::class, Follow::class, 'user_id', 'following_user_id');
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
 
     /**
@@ -36,7 +36,7 @@ trait Followable
     {
         return $this->belongsToMany(User::class, Follow::class, 'following_user_id', 'user_id');
     }
-//
+
 //    public function follows()
 //    {
 //        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
