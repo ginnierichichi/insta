@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Follow;
+use App\Models\Followable;
 use App\Models\Post;
 use App\Models\User;
 use Livewire\Component;
@@ -62,9 +64,20 @@ class Profile extends Component
 
         $this->showEditModal = false;
 
-
-
 //        $this->showEdotoModal = false;
+    }
+
+    public function followUser(User $user)
+    {
+//        dd($user);
+
+        if(!in_array($user->id, auth()->user()->follows->toArray())) {
+            Follow::create(['user_id' => auth()->id(), 'following_user_id' => $user->id]);
+        } else {
+            auth()->user()->follows()->delete();
+        }
+
+        return back();
     }
 
     public function newPost()
@@ -93,8 +106,9 @@ class Profile extends Component
         $this->user = User::findOrFail($this->user->id);
         $this->user->load('posts');
 
-        return view('livewire.profile', [
+        dd(in_array($this->user->id, auth()->user()->follows->toArray()));
 
+        return view('livewire.profile', [
             'users' => User::all(),
         ]);
     }
