@@ -7,6 +7,20 @@
         </div>
     </button>
     <div >Suggestions For you</div>
+    @foreach (\App\Models\User::where('id', '!=', auth()->id())->get() as $user)
+{{--        @dd($user)--}}
+        <li class="py-4 flex justify-between items-center w-1/2">
+            <div class="flex items-center">
+                <div class="pr-1">
+                    <img src=" {{$user->avatar ? asset('avatars/'.$user->avatar) : asset('images/default.png') }}" class=" rounded-full w-10 h-10">
+                </div>
+                <div>{{ $user->name }}</div>
+            </div>
+            <x-button.link wire:click="followUser({{ $user->id }})">
+                <div class="text-insta">follow</div>
+            </x-button.link>
+        </li>
+    @endforeach
 
     <div>Following</div>
     <ul>

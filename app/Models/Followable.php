@@ -10,10 +10,11 @@ trait Followable
     {
         return $this->following()->exists();
     }
-//    public function following()
-//    {
-//        return Follow::where('user_id', $this->id)->get();
-//    }
+
+    public function isNotFollowing()
+    {
+       !$this->following()->exists();
+    }
 
     public function toggleFollow(User $user)
     {

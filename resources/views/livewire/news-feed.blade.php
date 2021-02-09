@@ -6,14 +6,14 @@
             <div class=" rounded-lg mt-10 text-lg">
                 @foreach($posts as $post)
                     <div class="my-4 bg-white shadow-lg rounded-lg">
-                        <div class="flex items-center pl-8 py-4 border">
-                            <a href="{{ route('profile', $post->user) }}" >
-                            <img src=" {{$post->user->avatar ? asset('avatars/'.$post->user->avatar) : asset('images/default.png') }}" class=" rounded-full w-16 h-16">
-{{--                            @dd($post->name)--}}
-                            <div class="pl-4 text-2xl"><strong>{{ $post->user->name }}</strong></div>
-{{--                            @dd($posts)--}}
-                            </a>
-                        </div>
+                        <a href="{{ route('profile', $post->user) }}" >
+                            <div class="flex items-center pl-8 py-4 border">
+                                <img src=" {{$post->user->avatar ? asset('avatars/'.$post->user->avatar) : asset('images/default.png') }}" class=" rounded-full w-16 h-16">
+    {{--                            @dd($post->name)--}}
+                                <div class="pl-4 text-2xl"><strong>{{ $post->user->name }}</strong></div>
+    {{--                            @dd($posts)--}}
+                            </div>
+                        </a>
                         <div>
                             <img src="{{ asset('/posts/'.$post->image) }}">
                         </div>
