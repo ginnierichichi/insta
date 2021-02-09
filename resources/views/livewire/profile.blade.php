@@ -31,13 +31,15 @@
                         </div>
                     @if($user->id === auth()->id())
                         <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
-                    @else
+                    @elseif(auth()->user()->following($user))
                         <div class="space-x-1 pl-6">
                             <x-button.secondary class="text-xs">Message</x-button.secondary>
                             <x-button.secondary class="text-xs"><i class="fas fa-user-check"></i></x-button.secondary>
                             <x-button.secondary class="text-xs"><i class="fas fa-sort-down"></i></x-button.secondary>
                             <x-button.link class="text-xs"><i class="fas fa-ellipsis-h"></i></x-button.link>
                         </div>
+                    @else
+                        <x-button.primary class="text-xs">Follow</x-button.primary>
                     @endif
                     </div>
                     <div class="flex items-center space-x-4 pt-4 text-sm">
@@ -117,7 +119,7 @@
                     </div>
                     @empty
                         <div class="text-center p-10 text-xl">
-                            No Posts Yet...
+                            <x-gallery />
                         </div>
                     @endforelse
                 </div>

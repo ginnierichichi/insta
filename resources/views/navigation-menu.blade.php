@@ -18,7 +18,7 @@
                 <!-- Navigation Links -->
                 <div class="flex justify-end">
                     <div class="hidden sm:-my-px sm:ml-4 sm:flex justify-end">
-                        <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->id ]) }}" :active="request()->routeIs('profile')">
+                        <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->username ]) }}" :active="request()->routeIs('profile')">
                             <i class="fas fa-home text-2xl"></i>
                         </x-jet-nav-link>
                     </div>

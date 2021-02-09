@@ -23,7 +23,7 @@ Route::get('/', function () {
 //    dd(request('user'));
 //});
 
-Route::get('profile/{user}', Profile::class)->name('profile');
+Route::get('profile/{user:username}', Profile::class)->name('profile');
 Route::get('feed', NewsFeed::class)->name('feed');
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/feed', function () {

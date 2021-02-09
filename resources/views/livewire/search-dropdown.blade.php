@@ -8,7 +8,7 @@
         <ul>
             @forelse ($contacts as $contact)
             <li class="border-b border-gray-300">
-                <a href="{{ route('profile', $contact->id) }}"
+                <a href="{{ route('profile', $contact->username) }}"
                                class="text-left block hover:bg-gray-100 w-full p-3">
                     <div class="flex items-center">
                         <img src=" {{$contact->avatar ? asset('avatars/'.$contact->avatar) : asset('images/default.png') }}" class=" rounded-full w-10 h-10">
