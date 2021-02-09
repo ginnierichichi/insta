@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Follow;
 use App\Models\Followable;
 use App\Models\Post;
 use App\Models\User;
@@ -11,7 +10,7 @@ use Livewire\WithFileUploads;
 
 class Profile extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, Followable;
 
     public $post;
     public $editing;
@@ -66,6 +65,13 @@ class Profile extends Component
 
 //        $this->showEdotoModal = false;
     }
+//
+//    public function followUser(User $user)
+//    {
+//        auth()->user()->toggleFollow($user);
+//
+//        return back();
+//    }
 
     public function followUser(User $user)
     {
@@ -106,9 +112,10 @@ class Profile extends Component
         $this->user = User::findOrFail($this->user->id);
         $this->user->load('posts');
 
-        dd(in_array($this->user->id, auth()->user()->follows->toArray()));
+        dd($this->user->follows);
 
         return view('livewire.profile', [
+
             'users' => User::all(),
         ]);
     }

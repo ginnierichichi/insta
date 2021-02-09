@@ -31,6 +31,7 @@
                         </div>
                     @if($user->id === auth()->id())
                         <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
+{{--                    @elseif(auth()->user()->follows($user))--}}
                     @elseif(in_array($user->id, auth()->user()->follows()->toArray()))
                         <div class="space-x-1 pl-6">
                             <x-button.secondary class="text-xs">Message</x-button.secondary>

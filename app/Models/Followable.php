@@ -8,7 +8,7 @@ trait Followable
 {
 //    public function following(User $user)
 //    {
-//        return $this->user->follow()
+//        return $this->follows()
 //            ->where('following_user_id', $user->id)
 //            ->exists();
 //    }
@@ -20,7 +20,7 @@ trait Followable
 //
 //    public function unfollow(User $user)
 //    {
-//        return $this->follow()->detach($user);
+//        return $this->follows()->detach($user);
 //    }
 //
 //    public function toggleFollow(User $user)
