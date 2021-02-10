@@ -12,10 +12,8 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-
         @livewireStyles
-
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
@@ -42,7 +40,12 @@
 
         @stack('modals')
 
+
         @livewireScripts
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script>
+        const inputElement = document.querySelector('input[type="file"]');
+        const pond = FilePond.create( inputElement );
+        </script>
     </body>
 </html>

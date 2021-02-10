@@ -145,6 +145,11 @@
         </div>
 {{--    </div>--}}
 
+    <x-input.group label="Photo" for="post.image" :error="$errors->first('post.image')">
+        <x-input.filepond type="file" wire:model="post.image" />
+    </x-input.group>
+
+
     <!-------- Edit Profile Modal -------------->
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
@@ -162,7 +167,7 @@
                     </x-input.group>
 
                     <x-input.group label="Display Picture" for="avatar" :error="$errors->first('newAvatar')">
-                        <input type="file" wire:model="newAvatar" id="avatar">
+                        <x-input.filepond type="file" wire:model="newAvatar" id="avatar" />
                     </x-input.group>
                 </div>
             </x-slot>
@@ -177,8 +182,7 @@
     <x-modal.dialog wire:model.defer="showCreateModal">
         <x-slot name="title">Create a Post</x-slot>
         <x-slot name="content">
-            <div class="grid grid-cols-2 gap-4 pt-4">
-
+            <div class=" pt-4">
                 <x-input.group label="Photo" for="post.image" :error="$errors->first('post.image')">
                     <input type="file" wire:model="post.image" />
                 </x-input.group>
