@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @livewireStyles
         <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
@@ -43,9 +44,6 @@
 
         @livewireScripts
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
-        <script>
-        const inputElement = document.querySelector('input[type="file"]');
-        const pond = FilePond.create( inputElement );
-        </script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     </body>
 </html>

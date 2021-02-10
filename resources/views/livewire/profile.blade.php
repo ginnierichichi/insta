@@ -43,7 +43,7 @@
                     @endif
                     </div>
                     <div class="flex items-center space-x-4 pt-4 text-sm">
-                        <h2><strong>150</strong>{{ $user->posts->count() }}</h2>
+                        <h2><strong></strong>{{ $user->posts->count() }} posts</h2>
                         <h2><strong>{{ $user->followers()->count() }}</strong> followers</h2>
                         <h2><strong></strong> {{ $user->following()->count() }} following</h2>
                     </div>
@@ -144,12 +144,7 @@
             </div>
         </div>
 {{--    </div>--}}
-
-    <x-input.group label="Photo" for="post.image" :error="$errors->first('post.image')">
-        <x-input.filepond type="file" wire:model="post.image" />
-    </x-input.group>
-
-
+    
     <!-------- Edit Profile Modal -------------->
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
@@ -182,19 +177,21 @@
     <x-modal.dialog wire:model.defer="showCreateModal">
         <x-slot name="title">Create a Post</x-slot>
         <x-slot name="content">
-            <div class=" pt-4">
-                <x-input.group label="Photo" for="post.image" :error="$errors->first('post.image')">
-                    <input type="file" wire:model="post.image" />
-                </x-input.group>
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <div>
+                    <div>Photo:</div>
+                    <x-input.filepond type="file" wire:model="post.image" id="post.image" />
+                </div>
 
-                <x-input.group for="post.description" label="Description" :error="$errors->first('post.description')">
+                <div>
+                    <div>Description:</div>
                     <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />
-                </x-input.group>
+                </div>
             </div>
         </x-slot>
         <x-slot name="footer">
             <x-button.secondary>Cancel</x-button.secondary>
-            <x-button.primary wire:click="newPost">Save</x-button.primary>
+            <x-button.secondary wire:click="newPost">Save</x-button.secondary>
         </x-slot>
     </x-modal.dialog>
 </div>
