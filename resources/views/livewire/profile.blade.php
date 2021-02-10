@@ -197,28 +197,30 @@
 
     <!-------- View a Post Modal -------------->
     <div>
-        <x-modal.dialog wire:model.defer="showPostModal">
-            <x-slot name="title">Create a Post</x-slot>
-            <x-slot name="content">
-                <div class="grid grid-cols-3 gap-4 pt-4">
-                    <div class="col-span-2">
-{{--                        @dd($post->image)--}}
-                        <img src="{{ asset('/posts/'.$post->image) }}">
+        @if($selectedPost)
+            <x-modal.dialog wire:model.defer="showPostModal">
+                <x-slot name="title">Create a Post</x-slot>
+                <x-slot name="content">
+                    <div class="grid grid-cols-3 gap-4 pt-4">
+                        <div class="col-span-2">
+    {{--                        @dd($this->selectedPost['image']);--}}
+                            <img src="{{ asset('/posts/'.$selectedPost->image) }}">
+                        </div>
+                        <div >{{ $selectedPost->caption }}</div>
+
+
+        {{--                <div>--}}
+        {{--                    <div>Description:</div>--}}
+        {{--                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />--}}
+        {{--                </div>--}}
                     </div>
-                    <div >{{ $post->caption }}</div>
-
-
-    {{--                <div>--}}
-    {{--                    <div>Description:</div>--}}
-    {{--                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />--}}
-    {{--                </div>--}}
-                </div>
-            </x-slot>
-            <x-slot name="footer">
-                <x-button.secondary>Cancel</x-button.secondary>
-                <x-button.secondary wire:click="newPost">Save</x-button.secondary>
-            </x-slot>
-        </x-modal.dialog>
+                </x-slot>
+                <x-slot name="footer">
+                    <x-button.secondary>Cancel</x-button.secondary>
+                    <x-button.secondary wire:click="newPost">Save</x-button.secondary>
+                </x-slot>
+            </x-modal.dialog>
+        @endif
     </div>
 </div>
 

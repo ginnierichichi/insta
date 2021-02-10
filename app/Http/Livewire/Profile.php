@@ -17,6 +17,7 @@ class Profile extends Component
     public $newAvatar;
     public User $user;
     public $search = '';
+    public $selectedPost;
     public $showEditModal = false;
     public $showPostModal = false;
     public $showCreateModal = false;
@@ -73,8 +74,8 @@ class Profile extends Component
 
     public function viewPost(Post $post)
     {
-        if($this->post->isNot($post)) $this->post = $post;
-//        dd($this->post);
+        $this->selectedPost = $post;
+//       dd($this->selectedPost['image']);
         $this->showPostModal = true;
 
     }
