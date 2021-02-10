@@ -18,7 +18,7 @@
                 <div class="pb-10 pl-20 flex justify-center items-center" :error="$errors->first('newAvatar')">
 {{--                    <img src=" {{ auth()->user()->avatarUrl() }}" alt="Profile Photo" width="200px" class="rounded-full">--}}
                     @if($user->avatar === auth()->user()->avatar)
-                        <img src=" {{ asset('avatars/'.auth()->user()->avatar) }}" width="200px" class=" rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100 w-52 h-52 object-contain">
+                        <img src=" {{ asset('avatars/'.auth()->user()->avatar) }}" class="rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100 w-52 h-52 object-fit">
                     @else
                         <img src="{{ asset('images/default.png') }}">
                     @endif
@@ -103,7 +103,7 @@
             <div class="container">
                 <div class="gallery">
                     @forelse($user->posts as $post)
-                    <div class="gallery-item" tabindex="0">
+                    <x-button.link class="gallery-item" tabindex="0" wire:click="viewPost({{ $post->id }})" wire:key="{{ $post->id }}" >
                             <img src="{{ asset('/posts/'.$post->image) }}"
                              class="gallery-image" alt="">
                         <div class="gallery-item-info">
@@ -116,7 +116,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </x-button.link>
                     @empty
                         <div class="text-center p-10 text-xl">
                             <x-gallery />
@@ -144,7 +144,7 @@
             </div>
         </div>
 {{--    </div>--}}
-    
+
     <!-------- Edit Profile Modal -------------->
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
@@ -194,5 +194,31 @@
             <x-button.secondary wire:click="newPost">Save</x-button.secondary>
         </x-slot>
     </x-modal.dialog>
+
+    <!-------- View a Post Modal -------------->
+    <div>
+        <x-modal.dialog wire:model.defer="showPostModal">
+            <x-slot name="title">Create a Post</x-slot>
+            <x-slot name="content">
+                <div class="grid grid-cols-3 gap-4 pt-4">
+                    <div class="col-span-2">
+{{--                        @dd($post->image)--}}
+                        <img src="{{ asset('/posts/'.$post->image) }}">
+                    </div>
+                    <div >{{ $post->caption }}</div>
+
+
+    {{--                <div>--}}
+    {{--                    <div>Description:</div>--}}
+    {{--                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />--}}
+    {{--                </div>--}}
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-button.secondary>Cancel</x-button.secondary>
+                <x-button.secondary wire:click="newPost">Save</x-button.secondary>
+            </x-slot>
+        </x-modal.dialog>
+    </div>
 </div>
 

@@ -18,7 +18,9 @@ class Profile extends Component
     public User $user;
     public $search = '';
     public $showEditModal = false;
+    public $showPostModal = false;
     public $showCreateModal = false;
+
 
 
     protected $rules = [
@@ -29,6 +31,7 @@ class Profile extends Component
 
     public function mount(User $user)
     {
+        $this->post = $this->makeBlankPost();
         $this->user = $user->load('posts');
     }
 
@@ -64,6 +67,16 @@ class Profile extends Component
         $this->showEditModal = false;
 
 //        $this->showEdotoModal = false;
+    }
+
+    public function makeBlankPost(){ return Post::make(); }
+
+    public function viewPost(Post $post)
+    {
+        if($this->post->isNot($post)) $this->post = $post;
+//        dd($this->post);
+        $this->showPostModal = true;
+
     }
 
     /**
