@@ -109,7 +109,8 @@
                         <div class="gallery-item-info">
                             <ul>
                                 <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                        class="fas fa-heart" aria-hidden="true"></i> 56
+                                        class="fas fa-heart" aria-hidden="true"></i>
+                                    {{ $post->likes }}
                                 </li>
                                 <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
                                         class="fas fa-comment" aria-hidden="true"></i> 2
@@ -203,16 +204,16 @@
                 <x-slot name="content">
                     <div class="grid grid-cols-3 gap-4 pt-4">
                         <div class="col-span-2">
-    {{--                        @dd($this->selectedPost['image']);--}}
                             <img src="{{ asset('/posts/'.$selectedPost->image) }}">
                         </div>
+                        <div>
                         <div >{{ $selectedPost->caption }}</div>
-
-
-        {{--                <div>--}}
-        {{--                    <div>Description:</div>--}}
-        {{--                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />--}}
-        {{--                </div>--}}
+                            <div>
+                                <div><i class="far fa-heart"></i></div>
+                                @dd($selectedPost->likes)
+{{--                                <div>{{ $likes->liked ?: 0 }}</div>--}}
+                            </div>
+                        </div>
                     </div>
                 </x-slot>
                 <x-slot name="footer">

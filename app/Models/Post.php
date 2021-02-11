@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    use Likeable;
+
+    protected $guarded = [];
 
     public function user()
     {
@@ -18,4 +21,5 @@ class Post extends Model
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
+
 }
