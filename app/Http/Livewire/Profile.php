@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Followable;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use Livewire\Component;
@@ -13,6 +14,7 @@ class Profile extends Component
     use WithFileUploads, Followable;
 
     public $post;
+    public $like;
     public $editing;
     public $newAvatar;
     public User $user;
@@ -75,6 +77,15 @@ class Profile extends Component
     public function viewPost(Post $post)
     {
         $this->selectedPost = $post;
+
+        $like = Like::where('post_id', $this->selectedPost->id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
+        if($like){
+            $this->like = $like;
+        }
+
 //       dd($this->selectedPost['image']);
         $this->showPostModal = true;
 
@@ -88,6 +99,16 @@ class Profile extends Component
     public function followUser(User $user)
     {
         auth()->user()->toggleFollow($user);
+    }
+
+    public function toggleLike()
+    {
+        if($this->like){
+            $this->like->delete();
+            $this->like = false;
+        }else{
+            $this->like = Like::create(['post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0]);
+        }
     }
 
     public function newPost()

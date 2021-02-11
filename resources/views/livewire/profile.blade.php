@@ -108,9 +108,10 @@
                              class="gallery-image" alt="">
                         <div class="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                        class="fas fa-heart" aria-hidden="true"></i>
-                                    {{ $post->likes }}
+                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span>
+                                    <i
+                                        class="fas fa-heart"> </i>
+                                    {{ $post->likes->count() }}
                                 </li>
                                 <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
                                         class="fas fa-comment" aria-hidden="true"></i> 2
@@ -204,21 +205,28 @@
                 <x-slot name="content">
                     <div class="grid grid-cols-3 gap-4 pt-4">
                         <div class="col-span-2">
-                            <img src="{{ asset('/posts/'.$selectedPost->image) }}">
+                            <img src="{{ asset('/posts/'.$selectedPost->image) }}" class="rounded-lg shadow-lg">
                         </div>
-                        <div>
-                        <div >{{ $selectedPost->caption }}</div>
-                            <div>
-                                <div><i class="far fa-heart"></i></div>
-                                @dd($selectedPost->likes)
-{{--                                <div>{{ $likes->liked ?: 0 }}</div>--}}
+                        <div class="space-y-2">
+                            <div ><strong>{{ $user->name }}</strong></div>
+                            <div >{{ $selectedPost->caption }}</div>
+                            <div class="flex items-center space-x-2 pt-4">
+                                <form wire:submit.prevent="save">
+                                    <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $selectedPost->likes->count() > 0 ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
+{{--                                @dd($selectedPost->likes)--}}
+                                </form>
+                                <div class="text-xl">{{ $selectedPost->likes->count() ?: 0 }}</div>
+                                <div class="pl-2"><i class="far fa-comment text-xl"></i> comments</div>
+                            </div>
+                            <div class="pt-4">
+                                <div>Add Comment</div>
                             </div>
                         </div>
                     </div>
                 </x-slot>
                 <x-slot name="footer">
                     <x-button.secondary>Cancel</x-button.secondary>
-                    <x-button.secondary wire:click="newPost">Save</x-button.secondary>
+                    <x-button.secondary type="submit">Save</x-button.secondary>
                 </x-slot>
             </x-modal.dialog>
         @endif

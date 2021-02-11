@@ -40,7 +40,7 @@ trait Likeable
     public function isLikedBy(User $user)
     {
         return (bool)$user->likes
-            ->where('tweet_id', $this->id)
+            ->where('post_id', $this->id)
             ->where('liked', true)
             ->count();
     }
@@ -49,7 +49,7 @@ trait Likeable
     public function isDislikedBy(User $user)
     {
         return (bool)$user->likes
-            ->where('tweet_id', $this->id)
+            ->where('post_id', $this->id)
             ->where('liked', false)
             ->count();
     }

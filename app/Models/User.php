@@ -77,7 +77,16 @@ class User extends Authenticatable
 
         return Post::whereIn('user_id', $friends)
             ->orWhere('user_id', $this->id)
+            ->withLikes()
             ->latest()->get();
+    }
+
+    public function likedPost($post_id)
+    {
+        $like = Like::where('post_id', $post_id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+        return $like ? true : false;
     }
 
     public function profile()
