@@ -6,6 +6,7 @@ use App\Models\Followable;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -16,6 +17,7 @@ class Profile extends Component
     public $post;
     public $like;
     public $editing;
+    public $postImage;
     public $newAvatar;
     public User $user;
     public $search = '';
@@ -25,18 +27,18 @@ class Profile extends Component
     public $showCreateModal = false;
 
 
-
     protected $rules = [
-      'editing.title' => 'required',
-      'editing.description' => 'required',
-      'newAvatar' => 'nullable|image',
+        'editing.title' => 'required',
+        'editing.description' => 'required',
+        'newAvatar' => 'nullable|image',
+        'post.description' => 'nullable',
+        'post.image' => 'nullable'
     ];
 
     protected $listeners = ['refresh' => '$refresh'];
 
     public function mount(User $user)
     {
-        $this->post = $this->makeBlankPost();
         $this->user = $user->load('posts');
     }
 
@@ -55,9 +57,6 @@ class Profile extends Component
 
     public function save()
     {
-        $this->validate();
-
-
         if ($this->newAvatar) {
             $filename = $this->newAvatar->store('/', 'avatars');
 
@@ -74,22 +73,20 @@ class Profile extends Component
 //        $this->showEdotoModal = false;
     }
 
-    public function makeBlankPost(){ return Post::make(); }
-
     public function viewPost(Post $post)
     {
-        if(checkLogin()) {
+        if (checkLogin()) {
             $this->selectedPost = $post;
 
             $like = Like::where('post_id', $this->selectedPost->id)
                 ->where('user_id', auth()->user()->id)
                 ->first();
 
-            if($like){
+            if ($like) {
                 $this->like = $like;
             }
 
-    //       dd($this->selectedPost['image']);
+            //       dd($this->selectedPost['image']);
             $this->showPostModal = true;
         }
     }
@@ -97,7 +94,7 @@ class Profile extends Component
     /**
      * If the user is currently following
      *
-     * @param User $user
+     * @param  User  $user
      */
     public function followUser(User $user)
     {
@@ -106,12 +103,14 @@ class Profile extends Component
 
     public function toggleLike()
     {
-        if(auth()->user()) {
+        if (auth()->user()) {
             if ($this->like) {
                 $this->like->delete();
                 $this->like = false;
             } else {
-                $this->like = Like::create(['post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0]);
+                $this->like = Like::create([
+                    'post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0
+                ]);
             }
             $this->emitSelf('refresh');
         } else {
@@ -122,18 +121,14 @@ class Profile extends Component
 
     public function newPost()
     {
-        $this->validate([
-            'post.image' => 'required',
-            'post.description' => 'required',
-        ]);
 
-       $image =  $this->post['image']->store('/', 'posts');
+        $image = Storage::disk('public')->put('/posts', $this->selectedPost['image']);
 
-        $post= new Post;
+        $post = new Post;
 
-        $post->image = $image;
-        $post->caption = $this->post['description'];
-        $post->user_id =$this->user->id;
+        $post->image = basename($image);
+        $post->caption = $this->selectedPost['description'];
+        $post->user_id = $this->user->id;
 
         $post->save();
 
