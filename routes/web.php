@@ -25,9 +25,9 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware('auth')->group(function () {
 Route::get('profile/{user:username}', Profile::class)->name('profile');
-Route::get('/', NewsFeed::class)->name('feed');
+//Route::get('/', NewsFeed::class)->name('feed');
 //});
 
-//Route::middleware(['auth:sanctum', 'verified'])->get('/feed', function () {
-//    return view('livewire/news-feed');
-//})->name('feed');
+Route::middleware(['auth:sanctum', 'verified'])->group( function () {
+    Route::get('/', NewsFeed::class)->name('feed');
+});

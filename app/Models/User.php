@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function avatarUrl()
     {
         return  $this->avatar
@@ -77,7 +82,6 @@ class User extends Authenticatable
 
         return Post::whereIn('user_id', $friends)
             ->orWhere('user_id', $this->id)
-            ->withLikes()
             ->latest()->get();
     }
 

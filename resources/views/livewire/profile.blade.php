@@ -17,31 +17,35 @@
             <div class="grid grid-cols-3 gap-4 pt-4 border-b">
                 <div class="pb-10 pl-20 flex justify-center items-center" :error="$errors->first('newAvatar')">
 {{--                    <img src=" {{ auth()->user()->avatarUrl() }}" alt="Profile Photo" width="200px" class="rounded-full">--}}
-                    @if($user->avatar === auth()->user()->avatar)
-                        <img src=" {{ asset('avatars/'.auth()->user()->avatar) }}" class="rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100 w-52 h-52 object-fit">
+                    @if($user->avatar)
+                        <img src=" {{ asset('avatars/'. $user->avatar) }}" class="rounded-full ring ring-pink-400 ring-offset-4 ring-offset-pink-100 w-52 h-52 object-fit">
                     @else
                         <img src="{{ asset('images/default.png') }}">
                     @endif
                 </div>
+
                 <div class="p-10 col-span-2" >
                     <div class="flex items-center space-x-6">
                         <div class="flex items-center">
                             <h1>@ {{ $user->username }}</h1>
                             <img src="https://img.icons8.com/color/48/000000/instagram-verification-badge.png" width="20px"/>
                         </div>
-                    @if($user->id === auth()->id())
-                        <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
-                    @elseif(auth()->user()->isFollowing())
-                        <div class="space-x-1 pl-6">
-                            <x-button.secondary class="text-xs">Message</x-button.secondary>
-                            <x-button.secondary class="text-xs" wire:click="followUser({{ $user->id }})"><i class="fas fa-user-check"></i></x-button.secondary>
-                            <x-button.secondary class="text-xs"><i class="fas fa-sort-down"></i></x-button.secondary>
-                            <x-button.link class="text-xs"><i class="fas fa-ellipsis-h"></i></x-button.link>
-                        </div>
-                    @else
-                        <x-button.primary class="text-xs" wire:click="followUser({{ $user->id }})">Follow</x-button.primary>
-                    @endif
+                    @auth
+                        @if($user->id === auth()->id())
+                            <x-button.primary class="text-xs" wire:click="edit({{ $user->profile->id }})">Edit Profile</x-button.primary>
+                        @elseif(auth()->user()->isFollowing($user))
+                            <div class="space-x-1 pl-6">
+                                <x-button.secondary class="text-xs">Message</x-button.secondary>
+                                <x-button.secondary class="text-xs" wire:click="followUser({{ $user->id }})"><i class="fas fa-user-check"></i></x-button.secondary>
+                                <x-button.secondary class="text-xs"><i class="fas fa-sort-down"></i></x-button.secondary>
+                                <x-button.link class="text-xs"><i class="fas fa-ellipsis-h"></i></x-button.link>
+                            </div>
+                        @else
+                            <x-button.primary class="text-xs" wire:click="followUser({{ $user->id }})">Follow</x-button.primary>
+                        @endif
+                    @endauth
                     </div>
+
                     <div class="flex items-center space-x-4 pt-4 text-sm">
                         <h2><strong></strong>{{ $user->posts->count() }} posts</h2>
                         <h2><strong>{{ $user->followers()->count() }}</strong> followers</h2>
@@ -56,14 +60,17 @@
 
             </div>
 <!------------ Buttons Section for posts & tagged posts----------->
+
             <div class=" flex items-center justify-center space-x-8 pb-4">
                 <div >
+                    @auth
                     <x-jet-nav-link href="{{ route('profile', ['user' => auth()->user()->id ]) }}" :active="request()->routeIs('profile')">
                         <div class="flex items-center space-x-2 pt-4">
                             <i class="fab fa-buromobelexperte"></i>
                             <span>POSTS</span>
                         </div>
                     </x-jet-nav-link>
+                    @endauth
                 </div>
                 <div>
                     <x-jet-nav-link href="#" :active="request()->routeIs('igtv')">
@@ -87,7 +94,6 @@
                             <i class="fas fa-user-tag"></i>
                             <span>TAGGED</span>
                         </div>
-
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -121,7 +127,7 @@
                     </x-button.link>
                     @empty
                         <div class="text-center p-10 text-xl">
-                            <x-gallery />
+{{--                            <x-gallery />--}}  No posts yet...
                         </div>
                     @endforelse
                 </div>
@@ -211,10 +217,8 @@
                             <div ><strong>{{ $user->name }}</strong></div>
                             <div >{{ $selectedPost->caption }}</div>
                             <div class="flex items-center space-x-2 pt-4">
-                                <form wire:submit.prevent="save">
-                                    <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $selectedPost->likes->count() > 0 ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
+                                <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
 {{--                                @dd($selectedPost->likes)--}}
-                                </form>
                                 <div class="text-xl">{{ $selectedPost->likes->count() ?: 0 }}</div>
                                 <div class="pl-2"><i class="far fa-comment text-xl"></i> comments</div>
                             </div>

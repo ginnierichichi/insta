@@ -32,6 +32,8 @@ class Profile extends Component
       'newAvatar' => 'nullable|image',
     ];
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function mount(User $user)
     {
         $this->post = $this->makeBlankPost();
@@ -76,19 +78,20 @@ class Profile extends Component
 
     public function viewPost(Post $post)
     {
-        $this->selectedPost = $post;
+        if(checkLogin()) {
+            $this->selectedPost = $post;
 
-        $like = Like::where('post_id', $this->selectedPost->id)
-            ->where('user_id', auth()->user()->id)
-            ->first();
+            $like = Like::where('post_id', $this->selectedPost->id)
+                ->where('user_id', auth()->user()->id)
+                ->first();
 
-        if($like){
-            $this->like = $like;
+            if($like){
+                $this->like = $like;
+            }
+
+    //       dd($this->selectedPost['image']);
+            $this->showPostModal = true;
         }
-
-//       dd($this->selectedPost['image']);
-        $this->showPostModal = true;
-
     }
 
     /**
@@ -103,12 +106,18 @@ class Profile extends Component
 
     public function toggleLike()
     {
-        if($this->like){
-            $this->like->delete();
-            $this->like = false;
-        }else{
-            $this->like = Like::create(['post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0]);
+        if(auth()->user()) {
+            if ($this->like) {
+                $this->like->delete();
+                $this->like = false;
+            } else {
+                $this->like = Like::create(['post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0]);
+            }
+            $this->emitSelf('refresh');
+        } else {
+            $this->redirect('/login');
         }
+
     }
 
     public function newPost()

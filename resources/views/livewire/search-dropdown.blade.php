@@ -1,4 +1,4 @@
-<div class="relative mt-3">
+<div class="relative">
     <div class="flex items-center">
         <x-input.text type="text" wire:model.debounce.duration.500ms="search" placeholder="&#xf002;  Search...." />
     </div>

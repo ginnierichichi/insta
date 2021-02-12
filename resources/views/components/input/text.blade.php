@@ -1,6 +1,6 @@
 @props(['leadingAddOn' => false])
 
-<div class="max-w-lg flex rounded-md shadow-sm border space-y-4 text-gray-800 ">
+<div class="max-w-4xl w-full flex rounded-md shadow-sm border space-y-4 text-gray-800 ">
     @if($leadingAddOn)
     <span class="inline-flex items-center px-3 py-4 rounded-l-md border border-r-0 rounded-lg border-gray-500 bg-gray-50 text-gray-800 sm:text-sm">
         {{$leadingAddOn}}

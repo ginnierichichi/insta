@@ -6,19 +6,19 @@ namespace App\Models;
 
 trait Followable
 {
-    public function isFollowing()
+    public function isFollowing($user)
     {
-        return $this->following()->exists();
+        return $this->following()->get()->contains($user);
     }
 
     public function isNotFollowing()
     {
-       !$this->following()->exists();
+        return !$this->following()->exists();
     }
 
     public function toggleFollow(User $user)
     {
-        if ($this->isFollowing()) {
+        if ($this->isFollowing($user)) {
             return $this->following()->detach($user);
         }
 
