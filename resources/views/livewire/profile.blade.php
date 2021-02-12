@@ -108,9 +108,12 @@
                              class="gallery-image" alt="">
                         <div class="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i
-                                        class="fas fa-heart" aria-hidden="true"></i>
-                                    {{ $post->likes }}
+                                {{-- If we find a like in the likedPost function in User.php make the heart red, if not do nothing --}}
+                                <li class="gallery-item-likes {{ auth()->user()->likedPost($post->id) ? 'text-red-500' : '' }}" wire:click="toggleLike">
+                                    <span class="visually-hidden">Likes:</span>
+
+                                <i class="fas fa-heart" aria-hidden="true"></i>
+                                    {{ $post->likes->count() }}
                                 </li>
                                 <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
                                         class="fas fa-comment" aria-hidden="true"></i> 2
@@ -207,11 +210,10 @@
                             <img src="{{ asset('/posts/'.$selectedPost->image) }}">
                         </div>
                         <div>
-                        <div >{{ $selectedPost->caption }}</div>
+                        <div>{{ $selectedPost->caption }}</div>
                             <div>
-                                <div><i class="far fa-heart"></i></div>
-                                @dd($selectedPost->likes)
-{{--                                <div>{{ $likes->liked ?: 0 }}</div>--}}
+{{--                                If public $like variable contains a like make it red, if not do nothing--}}
+                                <i class="far fa-heart cursor-pointer {{ $like ? 'text-red-500' : '' }}" wire:click="toggleLike"></i>
                             </div>
                         </div>
                     </div>

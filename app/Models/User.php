@@ -85,4 +85,26 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * @param $post_id
+     * @return bool
+     *
+     * Look for the like depending on the post_id inserted into the function
+     * If we find a like return true, if not return false
+     *
+     * Usage $user->likedPost($post->id) or auth()->user()->likedPost($post->id)
+     */
+    public function likedPost($post_id)
+    {
+        $like = Like::where('post_id', $post_id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
+        return $like ? true : false;
+    }
 }
