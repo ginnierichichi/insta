@@ -12,8 +12,9 @@ class CommentsSection extends Component
 {
     use WithPagination;
 
-    public $comments;
+
     public $newComment;
+    public User $user;
 
     public function mount()
     {
@@ -34,8 +35,9 @@ class CommentsSection extends Component
         ]);
 
         $createdComment = Comment::create([
-            'body' => $this->newComment,
-            'user_id' => 1,
+            'content' => $this->newComment,
+            'user_id' => $this->user->username,
+            'post_id' => 1,
             ]);
 
         $this->comments->prepend($createdComment);

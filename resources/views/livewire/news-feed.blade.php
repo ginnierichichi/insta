@@ -9,9 +9,7 @@
                         <a href="{{ route('profile', $post->user) }}" >
                             <div class="flex items-center pl-8 py-4 border">
                                 <img src=" {{$post->user->avatar ? asset('avatars/'.$post->user->avatar) : asset('images/default.png') }}" class=" rounded-full w-16 h-16">
-                                @dd($post->name)
                                 <div class="pl-4 text-2xl"><strong>{{ $post->user->name }}</strong></div>
-                                @dd($posts)
                             </div>
                         </a>
                         <div>
@@ -37,7 +35,7 @@
                             </div>
                         </div>
                         <div class="border p-8">
-                            <livewire:comments-section />
+                            @livewire('comments-section')
                         </div>
                     </div>
                     @empty

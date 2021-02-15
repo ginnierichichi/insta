@@ -56,14 +56,22 @@ class Profile extends Component
     {
         $this->validate();
 
-
-        if ($this->newAvatar) {
-            $filename = $this->newAvatar->store('/', 'avatars');
+        if ($this->selectedPost) {
+            $filename = $this->selectedPost['image']->store('/', 'avatars');
 
             $this->user->avatar = $filename;
 
             $this->user->save();
         }
+
+//
+//        if ($this->newAvatar) {
+//            $filename = $this->newAvatar->store('/', 'avatars');
+//
+//            $this->user->avatar = $filename;
+//
+//            $this->user->save();
+//        }
 
 
         $this->editing->save();
@@ -124,11 +132,12 @@ class Profile extends Component
     public function newPost()
     {
         $this->validate([
-            'post.image' => 'required',
-            'post.description' => 'required',
+            'selectedPost.image' => 'required',
+            'selectedPost.description' => 'required',
         ]);
 
-       $image =  $this->post['image']->store('/', 'posts');
+//       $image =  $this->post['image']->store('/', 'posts');
+        $image =  $this->selectedPost['image']->store('/', 'posts');
 
         $post = new Post;
 
@@ -148,7 +157,6 @@ class Profile extends Component
         $this->user->load('posts');
 
         return view('livewire.profile', [
-
             'users' => User::all(),
         ]);
     }
