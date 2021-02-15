@@ -24,12 +24,11 @@ class Profile extends Component
     public $showPostModal = false;
     public $showCreateModal = false;
 
-
-
     protected $rules = [
       'editing.title' => 'required',
       'editing.description' => 'required',
       'newAvatar' => 'nullable|image',
+
     ];
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -106,12 +105,14 @@ class Profile extends Component
 
     public function toggleLike()
     {
-        if(auth()->user()) {
+        if (auth()->user()) {
             if ($this->like) {
                 $this->like->delete();
                 $this->like = false;
             } else {
-                $this->like = Like::create(['post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0]);
+                $this->like = Like::create([
+                    'post_id' => $this->selectedPost->id, 'user_id' => auth()->id(), 'liked' => 0
+                ]);
             }
             $this->emitSelf('refresh');
         } else {
@@ -129,11 +130,11 @@ class Profile extends Component
 
        $image =  $this->post['image']->store('/', 'posts');
 
-        $post= new Post;
+        $post = new Post;
 
-        $post->image = $image;
-        $post->caption = $this->post['description'];
-        $post->user_id =$this->user->id;
+        $post->image = basename($image);
+        $post->caption = $this->selectedPost['description'];
+        $post->user_id = $this->user->id;
 
         $post->save();
 

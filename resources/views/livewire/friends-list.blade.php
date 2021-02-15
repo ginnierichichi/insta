@@ -26,11 +26,14 @@
     <div>Following</div>
     <ul>
         @foreach (auth()->user()->following()->get() as $user)
-            <li class="py-4 flex items-center">
-                <div class="pr-1">
+            <li class="py-4 flex items-center space-x-2">
+                <div class="pr-1 flex items-center">
                     <img src=" {{$user->avatar ? asset('avatars/'.$user->avatar) : asset('images/default.png') }}" class=" rounded-full w-10 h-10">
+                    <span >{{ $user->name }}</span>
                 </div>
-                <span >{{ $user->name }}</span>
+                <x-button.link wire:click="followUser({{ $user->id }})">
+                    <div class="text-insta">unfollow</div>
+                </x-button.link>
             </li>
         @endforeach
     </ul>

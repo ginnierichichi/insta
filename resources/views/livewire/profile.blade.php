@@ -188,12 +188,12 @@
             <div class="grid grid-cols-2 gap-4 pt-4">
                 <div>
                     <div>Photo:</div>
-                    <x-input.filepond type="file" wire:model="post.image" id="post.image" />
+                    <x-input.filepond type="file" wire:model="selectedPost.image" id="post.image" />
                 </div>
 
                 <div>
                     <div>Description:</div>
-                    <x-input.textarea wire:model="post.description" id="post.description" placeholder="write your thoughts here" />
+                    <x-input.textarea wire:model.defer="selectedPost.description" id="post.description" placeholder="write your thoughts here" />
                 </div>
             </div>
         </x-slot>
@@ -205,7 +205,7 @@
 
     <!-------- View a Post Modal -------------->
     <div>
-        @if($selectedPost)
+        @if($showPostModal)
             <x-modal.dialog wire:model.defer="showPostModal">
                 <x-slot name="title">Create a Post</x-slot>
                 <x-slot name="content">
@@ -218,7 +218,7 @@
                             <div >{{ $selectedPost->caption }}</div>
                             <div class="flex items-center space-x-2 pt-4">
                                 <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
-{{--                                @dd($selectedPost->likes)--}}
+                                {{--                                @dd($selectedPost->likes)--}}
                                 <div class="text-xl">{{ $selectedPost->likes->count() ?: 0 }}</div>
                                 <div class="pl-2"><i class="far fa-comment text-xl"></i> comments</div>
                             </div>
@@ -236,4 +236,6 @@
         @endif
     </div>
 </div>
+
+
 

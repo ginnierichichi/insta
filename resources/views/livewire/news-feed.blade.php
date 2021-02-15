@@ -1,6 +1,6 @@
 <div>
     <div class="grid grid-cols-4 gap-4 pt-4 flex justify-center">
-        <div class="grid-cols-1 border border-red-500 ">1</div>
+        <div class="grid-cols-1 "></div>
         <div class="col-span-2 border">
             <div class="bg-white shadow-lg rounded-lg"><img src="{{ asset('images/stories.png') }}"></div>
             <div class=" rounded-lg mt-10 text-lg">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="border p-8">
-{{--                            <livewire:comments-section />--}}
+                            <livewire:comments-section />
                         </div>
                     </div>
                     @empty
