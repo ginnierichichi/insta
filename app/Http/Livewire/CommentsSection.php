@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -12,16 +13,23 @@ class CommentsSection extends Component
 {
     use WithPagination;
 
+    public Post $post;
 
     public $newComment;
     public User $user;
+    public array $comments;
 
-    public function mount()
-    {
-        $initialComments = Comment::latest()->paginate(2);
+    protected $rules = [
+        'newComment' => 'required',
+    ];
 
-        $this->comments = $initialComments;
-    }
+
+//    public function mount()
+//    {
+//        $initialComments = Comment::latest()->paginate(2);
+//
+//        $this->comments = $initialComments;
+//    }
 
     public function updated($field)
     {
@@ -30,25 +38,25 @@ class CommentsSection extends Component
 
     public function addComment()
     {
-        $this->validate([
-            'newComment' => 'required',
-        ]);
+        $this->validate();
 
         $createdComment = Comment::create([
             'content' => $this->newComment,
-            'user_id' => $this->user->username,
-            'post_id' => 1,
+            'user_id' => 1,
+            'post_id' => $this->post->id,
             ]);
 
-        $this->comments->prepend($createdComment);
+//        $this->comments->prepend($createdComment);
 
         $this->newComment = "";
+
+        $this->post = Post::find($this->post->id);
     }
 
     public function render()
     {
         return view('livewire.comments-section', [
-            'comments' => Comment::all(),
+            'comments' => Comment::latest()->paginate(2),
         ]);
     }
 }

@@ -35,7 +35,8 @@
                             </div>
                         </div>
                         <div class="border p-8">
-                            @livewire('comments-section')
+                            <livewire:comments-section :post="$post" />
+{{--                            @livewire('comments-section')--}}
                         </div>
                     </div>
                     @empty

@@ -28,7 +28,6 @@ class Profile extends Component
       'editing.title' => 'required',
       'editing.description' => 'required',
       'newAvatar' => 'nullable|image',
-
     ];
 
     protected $listeners = ['refresh' => '$refresh'];
