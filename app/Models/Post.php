@@ -22,6 +22,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function postsUrl()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));

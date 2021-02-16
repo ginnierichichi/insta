@@ -1,4 +1,3 @@
-{{-- The best athlete wants his opponent at his best. --}}
 <div class="container">
     <div class="gallery">
         @forelse($user->posts as $post)
@@ -13,7 +12,9 @@
                             {{ $post->likes->count() }}
                         </li>
                         <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                class="fas fa-comment" aria-hidden="true"></i> 2
+{{--                               @dd(\App\Models\Comment::where('post_id', 1)->get())--}}
+                                class="fas fa-comment" aria-hidden="true"></i> {{ \App\Models\Comment::where('post_id', 1)->get()->count() }}
+
                         </li>
                     </ul>
                 </div>

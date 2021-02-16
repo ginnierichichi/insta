@@ -27,7 +27,6 @@ class CommentsSection extends Component
 //    public function mount()
 //    {
 //        $initialComments = Comment::latest()->paginate(2);
-//
 //        $this->comments = $initialComments;
 //    }
 

@@ -63,7 +63,6 @@ class Profile extends Component
             $this->user->save();
         }
 
-//
 //        if ($this->newAvatar) {
 //            $filename = $this->newAvatar->store('/', 'avatars');
 //
@@ -72,12 +71,9 @@ class Profile extends Component
 //            $this->user->save();
 //        }
 
-
         $this->editing->save();
 
         $this->showEditModal = false;
-
-//        $this->showEdotoModal = false;
     }
 
     public function makeBlankPost(){ return Post::make(); }
@@ -156,7 +152,7 @@ class Profile extends Component
         $this->user->load('posts');
 
         return view('livewire.profile', [
-            'users' => User::all(),
+            'users' => User::with('comments')->get(),
         ]);
     }
 }

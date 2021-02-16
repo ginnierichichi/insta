@@ -104,34 +104,8 @@
             Default images for now to save on errors! ---------->
 {{--            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">--}}
 {{--            <x-gallery />--}}
+            <x-posts :user="$user"/>
                 <!-- End of container -->
-
-            <div class="container">
-                <div class="gallery">
-                    @forelse($user->posts as $post)
-                    <x-button.link class="gallery-item" tabindex="0" wire:click="viewPost({{ $post->id }})" wire:key="{{ $post->id }}" >
-                            <img src="{{ asset('/posts/'.$post->image) }}"
-                             class="gallery-image" alt="">
-                        <div class="gallery-item-info">
-                            <ul>
-                                <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span>
-                                    <i
-                                        class="fas fa-heart"> </i>
-                                    {{ $post->likes->count() }}
-                                </li>
-                                <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-                                        class="fas fa-comment" aria-hidden="true"></i> 2
-                                </li>
-                            </ul>
-                        </div>
-                    </x-button.link>
-                    @empty
-                        <div class="text-center p-10 text-xl">
-{{--                            <x-gallery />--}}  No posts yet...
-                        </div>
-                    @endforelse
-                </div>
-            </div>
 
 
 {{--                <div class="doc">--}}
@@ -223,7 +197,7 @@
                                 <div class="pl-2"><i class="far fa-comment text-xl"></i> comments</div>
                             </div>
                             <div class="pt-4">
-                                <div>Add Comment</div>
+{{--                                <div>{{ $selectPost->comments->content }}</div>--}}
                             </div>
                         </div>
                     </div>
