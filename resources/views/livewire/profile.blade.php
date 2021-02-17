@@ -213,7 +213,7 @@
                                                     <p class="font-bold text-xs">{{ $comment->user_id }}</p>
                                                     <p class="mx-3 text-xs text-gray-500 font-semibold">{{ $comment->created_at->diffForHumans() }}</p>
                                                 </div>
-                                                <p class="text=gray-800 pb-1">{{ $comment->content }}</p>
+                                                <p class="text-gray-800 pb-1">{{ $comment->content }}</p>
                                             </div>
                                         @endforeach
                                     </div>

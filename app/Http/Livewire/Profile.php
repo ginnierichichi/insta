@@ -7,6 +7,7 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -142,6 +143,12 @@ class Profile extends Component
         $post->image = basename($image);
         $post->caption = $this->selectedPost['description'];
         $post->user_id = $this->user->id;
+
+        if(Str::contains($post, '#')){
+            preg_match("/#(\w+)/", $post, $matches);
+            $hash = $matches[1];
+            Tag::create(['name' => $matches, 'post_id' => 1]);
+        }
 
         $post->save();
 

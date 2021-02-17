@@ -45,6 +45,7 @@ class CommentsSection extends Component
             'post_id' => $this->post->id,
             ]);
 
+
 //        $this->comments->prepend($createdComment);
 
         $this->newComment = "";
