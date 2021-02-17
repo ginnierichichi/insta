@@ -103,26 +103,35 @@
             When clicked on it will bring up a pop up modal of the image, description, likes & a comments section
             Default images for now to save on errors! ---------->
 {{--            <div class="grid grid-cols-3 gap-4 px-4 py-4 container flex-col ">--}}
-{{--            <x-gallery />--}}
-            <x-posts :user="$user"/>
-                <!-- End of container -->
+            <div class="container">
+                <div class="gallery">
+                    @forelse($user->posts as $post)
+                        <x-button.link class="gallery-item" tabindex="0" wire:click="viewPost({{ $post->id }})" wire:key="{{ $post->id }}" >
+                            <img src="{{ asset('/posts/'.$post->image) }}"
+                                 class="gallery-image" alt="">
+                            <div class="gallery-item-info">
+                                <ul>
+                                    <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span>
+                                        <i
+                                            class="fas fa-heart"> </i>
+                                        {{ $post->likes->count() }}
+                                    </li>
+                                    <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
+                                            class="fas fa-comment" aria-hidden="true"></i>
+                                        {{ $post->comments->count() ?: 0 }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </x-button.link>
+                    @empty
+                        <div class="text-center p-10 text-xl">
+                            {{--                            <x-gallery />--}}  No posts yet...
+                        </div>
+                    @endforelse
+                </div>
+            </div>
 
-
-{{--                <div class="doc">--}}
-{{--                    @forelse($user->posts as $post)--}}
-{{--                        <div >--}}
-{{--                            <img src="{{ asset('/posts/'.$post->image) }}" >--}}
-{{--                            <div class="links">--}}
-{{--                                <a href=""><i class="fa fa-heart"></i><span></span></a>--}}
-{{--                                <a href=""><i class="fa fa-comment"></i><span></span></a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    @empty--}}
-{{--                        <div class="text-center p-10 text-xl">--}}
-{{--                            No Posts Yet...--}}
-{{--                        </div>--}}
-{{--                    @endforelse--}}
-{{--                </div>--}}
+            <!-- End of container -->
             </div>
         </div>
 {{--    </div>--}}
@@ -154,7 +163,6 @@
             </x-slot>
         </x-modal.dialog>
     </form>
-
     <!-------- Create Posts Modal -------------->
     <x-modal.dialog wire:model.defer="showCreateModal">
         <x-slot name="title">Create a Post</x-slot>
@@ -194,10 +202,21 @@
                                 <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
                                 {{--                                @dd($selectedPost->likes)--}}
                                 <div class="text-xl">{{ $selectedPost->likes->count() ?: 0 }}</div>
-                                <div class="pl-2"><i class="far fa-comment text-xl"></i> comments</div>
+                                <div class="pl-2"><i class="far fa-comment text-xl"></i> {{ $selectedPost->comments->count() ?:0 }}</div>
                             </div>
                             <div class="pt-4">
-{{--                                <div>{{ $selectPost->comments->content }}</div>--}}
+                                    <div class="rounded-lg border py-1 px-3 my-2 text-xs">
+                                        @foreach($selectedPost->comments->sortDesc() as $comment)
+                                            <div class="border-b">
+                                                <div class="flex justify-between my-2">
+                                                    {{--                @dd($comment)--}}
+                                                    <p class="font-bold text-xs">{{ $comment->user_id }}</p>
+                                                    <p class="mx-3 text-xs text-gray-500 font-semibold">{{ $comment->created_at->diffForHumans() }}</p>
+                                                </div>
+                                                <p class="text=gray-800 pb-1">{{ $comment->content }}</p>
+                                            </div>
+                                        @endforeach
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -209,6 +228,7 @@
             </x-modal.dialog>
         @endif
     </div>
+
 </div>
 
 

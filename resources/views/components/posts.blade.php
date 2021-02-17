@@ -1,6 +1,6 @@
 <div class="container">
     <div class="gallery">
-        @forelse($user->posts as $post)
+        @forelse($posts as $post)
             <x-button.link class="gallery-item" tabindex="0" wire:click="viewPost({{ $post->id }})" wire:key="{{ $post->id }}" >
                 <img src="{{ asset('/posts/'.$post->image) }}"
                      class="gallery-image" alt="">
@@ -12,7 +12,7 @@
                             {{ $post->likes->count() }}
                         </li>
                         <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i
-{{--                               @dd(\App\Models\Comment::where('post_id', 1)->get())--}}
+{{--                               @dd($post->comments)--}}
                                 class="fas fa-comment" aria-hidden="true"></i> {{ \App\Models\Comment::where('post_id', 1)->get()->count() }}
 
                         </li>

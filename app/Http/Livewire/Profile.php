@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Followable;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,12 +26,14 @@ class Profile extends Component
     public $showCreateModal = false;
 
     protected $rules = [
-      'editing.title' => 'required',
-      'editing.description' => 'required',
-      'newAvatar' => 'nullable|image',
+        'editing.title' => 'required',
+        'editing.description' => 'required',
+        'newAvatar' => 'nullable|image',
+        'selectedPost.image' => 'required',
+        'selectedPost.description' => 'required',
     ];
 
-    protected $listeners = ['refresh' => '$refresh'];
+    protected $listeners = ['showCreateModal' => 'create', 'refresh' => '$refresh'];
 
     public function mount(User $user)
     {
@@ -91,7 +94,7 @@ class Profile extends Component
                 $this->like = $like;
             }
 
-    //       dd($this->selectedPost['image']);
+            //       dd($this->selectedPost['image']);
             $this->showPostModal = true;
         }
     }
