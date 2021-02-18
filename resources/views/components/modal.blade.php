@@ -13,11 +13,11 @@
             $maxWidth = 'sm:max-w-lg';
             break;
         case 'xl':
-            $maxWidth = 'sm:max-w-xl';
+            $maxWidth = 'sm:max-w-2xl';
             break;
         case '2xl':
         default:
-            $maxWidth = 'sm:max-w-3xl';
+            $maxWidth = 'sm:max-w-4xl';
             break;
     }
 @endphp
@@ -47,7 +47,7 @@
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
     id="{{ $id }}"
-    class="fixed top-1/4 inset-x-0 px-4 pt-10 z-50 sm:px-0 sm:flex sm:items-top sm:justify-center"
+    class="fixed top-0 inset-x-0 px-4 pt-6 z-50 sm:px-0 sm:flex sm:items-top sm:justify-center"
     style="display: none;"
 >
     <div x-show="show" class="fixed inset-0 transform transition-all" x-on:click="show = false" x-transition:enter="ease-out duration-300"
@@ -69,3 +69,4 @@
         {{ $slot }}
     </div>
 </div>
+

@@ -11,7 +11,9 @@
                     </x-button.link>
                 @endif
             </div>
-
+            <x-button.link wire:click="dispatchEvent" >
+                {{ __('Dispatch Event') }}
+            </x-button.link>
 
 {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
             <div class="grid grid-cols-3 gap-4 pt-4 border-b">
@@ -198,13 +200,14 @@
                         <div class="space-y-2">
                             <div ><strong>{{ $user->name }}</strong></div>
                             <div >{{ $selectedPost->caption }}</div>
-                            <div class="flex items-center space-x-2 pt-4">
+                            <div class="flex items-center space-x-2 pt-4 pb-2 border-b">
                                 <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
                                 {{--                                @dd($selectedPost->likes)--}}
                                 <div class="text-xl">{{ $selectedPost->likes->count() ?: 0 }}</div>
                                 <div class="pl-2"><i class="far fa-comment text-xl"></i> {{ $selectedPost->comments->count() ?:0 }}</div>
                             </div>
-                            <div class="pt-4">
+                            <div class="pt-4">Comments:</div>
+                            <div class="overflow-scroll max-h-400">
                                     <div class="rounded-lg border py-1 px-3 my-2 text-xs">
                                         @foreach($selectedPost->comments->sortDesc() as $comment)
                                             <div class="border-b">

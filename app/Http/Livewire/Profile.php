@@ -25,6 +25,7 @@ class Profile extends Component
     public $showEditModal = false;
     public $showPostModal = false;
     public $showCreateModal = false;
+    public $dispatchBrowserEvent;
 
     protected $rules = [
         'editing.title' => 'required',
@@ -143,16 +144,31 @@ class Profile extends Component
         $post->image = basename($image);
         $post->caption = $this->selectedPost['description'];
         $post->user_id = $this->user->id;
+        $post->tags()->attach(request('tags'));
 
-        if(Str::contains($post, '#')){
-            preg_match("/#(\w+)/", $post, $matches);
+        if(request('tag')) {
+            $description = Tag::where('name', request('tag'))->firstOrFail()->posts;
+            return $description;
+        }
+
+        if(Str::contains($post->caption, '#')){
+            preg_match("/#(\w+)/", $post->caption, $matches);
             $hash = $matches[1];
-            Tag::create(['name' => $matches, 'post_id' => 1]);
+            Tag::create(['name' => $hash]);
         }
 
         $post->save();
 
         $this->showCreateModal = false;
+    }
+
+    public function dispatchEvent()
+    {
+        $this->dispatchBrowserEvent('event-notification', [
+            //array of data to pass to js callback function (event name & message)
+            'eventName' => 'Sample Event',
+            'eventMessage' =>'You have a sample event notification'
+        ]);
     }
 
     public function render()
@@ -165,4 +181,5 @@ class Profile extends Component
             'users' => User::with('comments')->get(),
         ]);
     }
+
 }

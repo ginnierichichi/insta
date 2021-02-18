@@ -45,5 +45,16 @@
         @livewireScripts
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script>
+            //surround native js code to instantiate a websocket client
+            function clintSocket(config = {}) {
+                let route = config.route || "127.0.0.1";
+                let port = config.port || "3280";
+            }
+
+            window.addEventListener('event-notification', event => {
+                alert('Event:' + event.detail.eventName);
+            })
+        </script>
     </body>
 </html>

@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\NewsFeed;
 use App\Http\Livewire\Profile;
+use App\Http\Livewire\Tags;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,5 @@ Route::get('profile/{user:username}', Profile::class)->name('profile');
 
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/', NewsFeed::class)->name('feed');
+    Route::get('/{tag}', Tags::class)->name('tags');
 });

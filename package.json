@@ -7,7 +7,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "start": "nodemon eventNotificationServer.js"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.2.1",
@@ -25,6 +26,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.2",
-        "filepond": "^4.25.1"
+        "filepond": "^4.25.1",
+        "html-entities": "^1.4.0",
+        "nodemon": "^2.0.7",
+        "websocket": "^1.0.33"
     }
 }
