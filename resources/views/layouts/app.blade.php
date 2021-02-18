@@ -46,10 +46,26 @@
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
         <script>
-            //surround native js code to instantiate a websocket client
-            function clintSocket(config = {}) {
+            /**
+             * surround native js code to instantiate a websocket client
+             *
+             * @param config
+             * @returns {WebSocket}
+             */
+            function clientSocket(config = {}) {
                 let route = config.route || "127.0.0.1";
                 let port = config.port || "3280";
+                window.Websocket = window.Websocket || window.MozWebSocket;
+                return new WebSocket("ws://" + route + ":" + port);
+            }
+            //instantiate a connection
+            var connection = clientSocket();
+
+            /**
+             * When the connection is open
+             */
+            connection.onopen = function () {
+                console.log("Connection is open");
             }
 
             window.addEventListener('event-notification', event => {
