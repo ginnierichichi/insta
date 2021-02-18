@@ -199,7 +199,7 @@
                         </div>
                         <div class="space-y-2">
                             <div ><strong>{{ $user->name }}</strong></div>
-                            <div >{{ $selectedPost->caption }}</div>
+                            <div >{!! $selectedPost->caption !!} </div>
                             <div class="flex items-center space-x-2 pt-4 pb-2 border-b">
                                 <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
                                 {{--                                @dd($selectedPost->likes)--}}

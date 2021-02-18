@@ -18,7 +18,7 @@
         <div class="rounded-lg border shadow py-1 px-3 my-2 text-xs">
             <div class="flex justify-between my-2">
 {{--                @dd($comment)--}}
-                <p class="font-bold text-xs">{{ $comment->user_id }}</p>
+                <p class="font-bold text-xs">{{ $comment->creator->username }}</p>
                 <p class="mx-3 text-xs text-gray-500 font-semibold">{{ $comment->created_at->diffForHumans() }}</p>
             </div>
             <p class="text-gray-800 pb-1">{{ $comment->content }}</p>

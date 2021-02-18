@@ -35,6 +35,9 @@
 
             <!-- Page Content -->
             <main>
+                <div class="event-notification-box fixed right-0 top-0 bg-green-400 text-white mt-3 mr-3 px-5 py-3 rounded-lg shadow-lg transform duration-700 opacity-0">
+
+                </div>
                 {{ $slot }}
             </main>
         </div>
@@ -69,8 +72,19 @@
             }
 
             window.addEventListener('event-notification', event => {
-                alert('Event:' + event.detail.eventName);
-            })
+                connection.send(JSON.stringify({
+                    eventName: event.detail.eventName,
+                    eventMessage: event.detail.eventMessage
+                }));
+            });
+
+            //receives messages from websocket server
+            connection.onmessage = function (message) {
+                var result = JSON.parse(message.data);
+
+                //begin animation -Display message
+                $(".event-notification-box")
+            }
         </script>
     </body>
 </html>

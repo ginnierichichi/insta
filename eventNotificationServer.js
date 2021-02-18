@@ -24,15 +24,28 @@ wsServer = new WebSocketServer({
 wsServer.on("request", function (request) {
     var connection = request.accept(null, request.origin);
 
-    //pass each connection instance to each client.
-    var index = client.push(connection) -1;
+    //pass each connection instance to each user.
+    var index = clients.push(connection) - 1;
     console.log('Client', index, "connected");
 
     /**
      * This is where the sent message to all the connected clients.
      */
     connection.on("message", function(message) {
-        console.log("message");
+        var utf8Data = JSON.parse(message.utf8Data);
+
+        if(message.type === 'utf8') {
+            //prepare the json data to be sent to all users that are connected
+            var obj = JSON.stringify({
+                eventName: htmlEntity.encode(utf8Data.eventName),
+                eventMessage: htmlEntity.encode(utf8Data.eventName)
+            });
+
+            //send them to all the users
+            for (let i=0; i < clients.length; i++) {
+                clients[i].sendUTF(obj);
+            }
+        }
     })
 
     //detect if current connection is closed

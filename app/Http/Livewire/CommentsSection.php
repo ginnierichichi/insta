@@ -41,7 +41,7 @@ class CommentsSection extends Component
 
         $createdComment = Comment::create([
             'content' => $this->newComment,
-            'user_id' => 1,
+            'user_id' => auth()->id(),
             'post_id' => $this->post->id,
             ]);
 

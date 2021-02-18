@@ -88,6 +88,8 @@ class Profile extends Component
         if(checkLogin()) {
             $this->selectedPost = $post;
 
+            $post->caption = preg_replace('/(?:^|\s)#(\w+)/','<a href="/tags/$1">#$1</a>', $post->caption);
+
             $like = Like::where('post_id', $this->selectedPost->id)
                 ->where('user_id', auth()->user()->id)
                 ->first();
@@ -151,13 +153,24 @@ class Profile extends Component
             return $description;
         }
 
-        if(Str::contains($post->caption, '#')){
-            preg_match("/#(\w+)/", $post->caption, $matches);
-            $hash = $matches[1];
-            Tag::create(['name' => $hash]);
+        $post->save();
+
+        if(preg_match_all("/#(\w+)/", $post->caption, $matches, PREG_PATTERN_ORDER)) {
+            foreach($matches[1] as $word) {
+                $tag = Tag::where('name', $word)->first();
+                if(!tag) {
+                    $tag = Tag::updateOrCreate(['name' => $word]);
+                }
+
+                $post->tags()->attach(request('tags'));
+            }
         }
 
-        $post->save();
+//        if(Str::contains($post->caption, '#')){
+//            preg_match("/#(\w+)/", $post->caption, $matches);
+//            $hash = $matches[1];
+//            Tag::create(['name' => $hash]);
+//        }
 
         $this->showCreateModal = false;
     }

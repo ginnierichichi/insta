@@ -10,7 +10,7 @@ class NewsFeed extends Component
     public function render()
     {
         return view('livewire.news-feed', [
-            'posts' => Post::with('user')->get(),
+            'posts' => Post::with('comments.creator')->get(),
         ]);
     }
 }
