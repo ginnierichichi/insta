@@ -28,6 +28,8 @@ class Tags extends Component
 
     public function render()
     {
-        return view('livewire.tags');
+        return view('livewire.tags', [
+            'taggedPosts' => Tag::with('posts')->get(),
+        ]);
     }
 }

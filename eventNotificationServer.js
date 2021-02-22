@@ -38,7 +38,7 @@ wsServer.on("request", function (request) {
             //prepare the json data to be sent to all users that are connected
             var obj = JSON.stringify({
                 eventName: htmlEntity.encode(utf8Data.eventName),
-                eventMessage: htmlEntity.encode(utf8Data.eventName)
+                eventMessage: htmlEntity.encode(utf8Data.eventMessage)
             });
 
             //send them to all the users

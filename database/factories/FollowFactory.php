@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Data;
-use App\Models\Profile;
+use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProfileFactory extends Factory
+class FollowFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Profile::class;
+    protected $model = Follow::class;
 
     /**
      * Define the model's default state.
@@ -25,9 +24,7 @@ class ProfileFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create()->id,
-            'title' => $this->faker->name,
-            'description' => $this->faker->sentence,
-            'url' => $this->faker->url,
+            'following_user_id' => User::factory()->create()->id,
         ];
     }
 }

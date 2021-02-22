@@ -54,6 +54,11 @@ class Profile extends Component
     {
         $this->resetErrorBag();
         $this->showCreateModal = true;
+
+        $this->dispatchBrowserEvent('event-notification', [
+           'eventName' => 'Success',
+           'eventMessage' => 'You have a sample event notification',
+        ]);
     }
 
     public function save()
@@ -175,11 +180,14 @@ class Profile extends Component
         $this->showCreateModal = false;
     }
 
+    /**
+     * Dispatch Event
+     */
     public function dispatchEvent()
     {
         $this->dispatchBrowserEvent('event-notification', [
             //array of data to pass to js callback function (event name & message)
-            'eventName' => 'Sample Event',
+            'eventName' => 'Success',
             'eventMessage' =>'You have a sample event notification'
         ]);
     }

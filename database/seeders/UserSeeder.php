@@ -6,7 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class ProfileSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        Profile::factory()
+        User::factory()
             ->count(10)
             ->create();
     }

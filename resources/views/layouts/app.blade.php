@@ -64,13 +64,6 @@
             //instantiate a connection
             var connection = clientSocket();
 
-            /**
-             * When the connection is open
-             */
-            connection.onopen = function () {
-                console.log("Connection is open");
-            }
-
             window.addEventListener('event-notification', event => {
                 connection.send(JSON.stringify({
                     eventName: event.detail.eventName,
@@ -78,12 +71,42 @@
                 }));
             });
 
+            /**
+             * When the connection is open
+             */
+            connection.onopen = function () {
+                console.log("Connection is open");
+            }
+
+            connection.onclose = function () {
+                console.log("connection was closed!");
+                console.log("Reconnecting after 3 seconds... ")
+                setTimeout(() => {
+                    window
+                })
+            }
+
             //receives messages from websocket server
             connection.onmessage = function (message) {
                 var result = JSON.parse(message.data);
+                var notificationMessage = `
+                      <h3>${result.eventName}</h3>
+                      <p>${result.eventMessage}</p>
+                `;
+
+                //begin animation - display message
+                $(".event-notification-box").html(notificationMessage);
+                $(".event-notification-box").removeClass("opacity-0");
+                $(".event-notification-box").addClass("opacity-100");
+
+                //hide the message
+                setTimeout(() => {
+                    $(".event-notification-box").removeClass("opacity-100");
+                    $(".event-notification-box").removeClass("opacity-0");
+                }, 3000);
 
                 //begin animation -Display message
-                $(".event-notification-box")
+                $(".event-notification-box").html("")
             }
         </script>
     </body>
