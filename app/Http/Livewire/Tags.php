@@ -7,15 +7,19 @@ use Livewire\Component;
 
 class Tags extends Component
 {
-    public $tags;
+    public $discover;
+    public $name;
 
     protected $listeners = ['tagAdded'];
 
-    public function mount()
+    public function mount($tag)
     {
-        $allTags = Tag::all();
+        $this->discover = Tag::with('posts')->where('name', $tag)->get();
+        $this->name = $tag;
 
-        $this->tags = $allTags;     //collection of all the tags
+//        $allTags = Tag:: whereName($this->tags)->first();
+
+//        $this->tags = $allTags;     //collection of all the tags
     }
 
     public function tagAdded($tag)
