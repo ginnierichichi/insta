@@ -1,11 +1,11 @@
 <div class="space-y-4 pl-4">
-    <button class=" pt-4 flex items-center">
+    <a href="{{ route('profile', ['user' => auth()->user()->username ]) }}" class="pt-4 flex items-center">
         <img src="{{ asset('avatars/'.auth()->user()->avatar) }}" class="w-16 h-16 rounded-full">
         <div class="pl-4">
             <div><strong>{{ auth()->user()->username }}</strong></div>
             <div class="text-gray-600">{{ auth()->user()->name }}</div>
         </div>
-    </button>
+    </a>
     <div >Suggestions For you</div>
     @foreach ($users as $user)
         @if(!auth()->user()->isFollowing($user))

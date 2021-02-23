@@ -159,6 +159,8 @@ class Posts extends Component
         $this->user = User::findOrFail($this->user->id);
         $this->user->load('posts');
 
-        return view('livewire.posts');
+        return view('livewire.posts', [
+            'posts' => Post::with('likes')->get()
+        ]);
     }
 }

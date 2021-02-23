@@ -56,7 +56,7 @@ class CommentsSection extends Component
     public function render()
     {
         return view('livewire.comments-section', [
-            'comments' => Comment::latest()->paginate(2),
+            'comments' => Comment::paginate(2),
         ]);
     }
 }

@@ -32,4 +32,9 @@ class Post extends Model
         return 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
 }

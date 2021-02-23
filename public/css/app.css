@@ -39134,7 +39134,7 @@ img {
   align-items: center;
   position: absolute;
   top: 0;
-  width: 375px;
+  width: 363px;
   height: 375px;
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -39169,7 +39169,9 @@ img {
 .gallery-image {
   -o-object-fit: cover;
      object-fit: cover;
-  width: 380px;
+  background: 50% 50% no-repeat;
+  /* 50% 50% centers image in div */
+  width: 375px;
   height: 375px;
 }
 

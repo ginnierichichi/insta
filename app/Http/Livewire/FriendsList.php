@@ -10,6 +10,13 @@ class FriendsList extends Component
 {
     use Followable;
     public $user;
+    public $slug;
+
+//    public function mount(User $url)
+//    {
+//        $this->user = User::where('username', $url)->get();
+//        $this->slug= $url;
+//    }
 
     public function followUser(User $user)
     {
