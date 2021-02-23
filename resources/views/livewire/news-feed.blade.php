@@ -30,12 +30,19 @@
                         </div>
                         <div class="pl-8 py-4">
                             <div class="space-x-4">
-                                <i class="far fa-heart text-4xl"></i>
+                                <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-4xl {{ $like ? 'fas fa-heart text-red-600 text-4xl' : '' }}"></i></x-button.link>
                                 <i class="far fa-comment text-4xl fa-rotate-180"></i>
                                 <i class="far fa-paper-plane text-4xl"></i>
                             </div>
-                            <div>
-                                <div><strong>{{ $post->likes->count() }}</strong></div>
+                            <div class="text-sm">Liked by:
+                                @if($like)
+{{--                                    {{ $post->likes->last()->user->username }}--}}
+                                    @if($post->likes->count() -1 > 0)
+                                        and {{ $post->likes->count() -1 }} other
+                                    @elseif($post->likes->count() -1 > 1)
+                                        and {{ $post->likes->count() -1 }} others
+                                    @endif
+                                @endif
                             </div>
                         </div>
                         <div class="border-t py-4 pl-8">
