@@ -33,6 +33,7 @@ class Tags extends Component
     {
         Like::where('user_id', $user->username)->get();
     }
+
     public function tagAdded($tag)
     {
         Tag::create([

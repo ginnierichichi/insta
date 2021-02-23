@@ -2,7 +2,20 @@
     <div class="grid grid-cols-4 gap-4 pt-4 flex justify-center">
         <div class="grid-cols-1 "></div>
         <div class="col-span-2">
-            <div class="bg-white shadow-lg rounded-lg"><img src="{{ asset('images/stories.png') }}"></div>
+            <div class="bg-white shadow-lg rounded-lg">
+                <div class="flex items-center p-4">
+                    @foreach (auth()->user()->following()->get() as $user)
+                        <div class="space-x-6">
+                            <div class="pr-1">
+                                <img src=" {{$user->avatar ? asset('avatars/'.$user->avatar) : asset('images/default.png') }}" class=" rounded-full w-20 h-20">
+                                <div class="flex justify-center">{{ $user->username }}</div>
+                            </div>
+                        </div>
+                    @endforeach
+
+{{--                    <img src="{{ asset('images/stories.png') }}">--}}
+                </div>
+            </div>
             <div class="rounded-lg mt-10 text-lg">
                 @forelse($posts as $post)
                     <div class="my-4 bg-white shadow-lg rounded-lg">
@@ -44,7 +57,7 @@
                 @endforelse
             </div>
         </div>
-        <div class=" grid-cols-1 space-x-8 space-y-8">
+        <div class=" grid-cols-1 w-1/2 space-x-8 space-y-8">
            @livewire('friends-list')
         </div>
     </div>
