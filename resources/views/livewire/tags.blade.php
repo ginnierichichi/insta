@@ -71,11 +71,10 @@
                                 @endforelse
                             </div>
                             <div class="">
-                                <div class="flex items-center space-x-2 pt-4 pb-2 border-b pb-2">
-                                    <x-button.link wire:click="toggleLike" type="submit"><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
-                                    {{--                                @dd($selectedPost->likes)--}}
+                                <div class="flex items-baseline space-x-2 pt-4 pb-2 border-b pb-2">
+                                    <x-button.link ><i class="far fa-heart text-xl {{ $like ? 'fas fa-heart text-red-600 text-xl' : '' }}"></i></x-button.link>
                                     <div><i class="far fa-comment text-xl"></i></div>
-                                    <div><i class="far fa-paper-plane"></i>
+                                    <div><i class="far fa-paper-plane text-lg"></i>
                                 </div>
                             </div>
 

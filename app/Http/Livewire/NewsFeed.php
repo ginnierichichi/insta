@@ -23,34 +23,37 @@ class NewsFeed extends Component
     public function mount(User $user)
     {
         $this->user = $user->load('posts');
+        $this->like = Like::class;
     }
 
-    public function toggleLike()
+    public function toggleLike(Post $post)
     {
-//        if (auth()->user()) {
-//            if ($this->like) {
-//                $this->like->delete();
-//                $this->like = false;
-//            } else {
-//                $this->like = Like::create([
-////                    dd($this->post),
-//                    $this->post->likes()->toggle(auth()->id())
-////                    'post_id' => $this->post->id, 'user_id' => auth()->id(), 'liked' => 0
-//                ]);
-//            }
-//            $this->emitSelf('refresh');
-//        } else {
-//            $this->redirect('/login');
-//        }
+        $this->post = $this->selectedPost;
 
-        $this->post->likes()->toggle(auth()->id());
+        if (auth()->user()) {
+            if ($this->like) {
+                $this->like->delete();
+                $this->like = false;
+            } else {
+                $this->like = Like::create([
+                    'post_id' => $post->id,
+                    'user_id' => auth()->id(),
+                    'liked' => 0,
+//                    $this->post->likes()->toggle(auth()->id())
+                ]);
+            }
+            $this->emitSelf('refresh');
+        } else {
+            $this->redirect('/login');
+        }
 
     }
 
     public function render()
     {
         return view('livewire.news-feed', [
-            'posts' => Post::with('comments.creator')->latest()->get(),
+            'posts' => Post::with('comments.creator')
+                ->with('likes')->latest()->get(),
         ]);
     }
 }

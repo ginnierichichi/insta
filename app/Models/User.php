@@ -85,6 +85,11 @@ class User extends Authenticatable
             ->latest()->get();
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function likedPost($post_id)
     {
         $like = Like::where('post_id', $post_id)
