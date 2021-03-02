@@ -18,6 +18,11 @@ class CommentsSection extends Component
     public $newComment;
     public User $user;
     public array $comments;
+    public $amount = 2;
+
+    protected $listeners = [
+        'load-more' => 'loadMore'
+    ];
 
     protected $rules = [
         'newComment' => 'required',
@@ -53,10 +58,19 @@ class CommentsSection extends Component
         $this->post = Post::find($this->post->id);
     }
 
+    public function loadMore()
+    {
+        $this->amount = $this->amount + 3;
+    }
+
     public function render()
     {
+        $comments = Comment::latest()->paginate($this->amount);
+//        $this->emit('userStore');
+
         return view('livewire.comments-section', [
-            'comments' => Comment::paginate(2),
+            'comments' => $comments,
         ]);
+
     }
 }

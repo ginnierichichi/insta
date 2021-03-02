@@ -1,6 +1,5 @@
 {
-    "/js/app.js": "/js/app.js?id=4d3b660ffb6594934465",
-    "/css/app.css": "/css/app.css?id=7d59a97dfe0764728ac9",
+    "/js/app.js": "/js/app.js?id=5215c838293bb532abbd",
     "/webfonts/fa-brands-400.eot": "/webfonts/fa-brands-400.eot?id=bbe2aacff5cae36c47ab",
     "/webfonts/fa-brands-400.svg": "/webfonts/fa-brands-400.svg?id=5d10d00980077f67990f",
     "/webfonts/fa-brands-400.ttf": "/webfonts/fa-brands-400.ttf?id=a8753d38aa84257d28e5",
@@ -15,5 +14,6 @@
     "/webfonts/fa-solid-900.svg": "/webfonts/fa-solid-900.svg?id=2306f642b31b774ba1d8",
     "/webfonts/fa-solid-900.ttf": "/webfonts/fa-solid-900.ttf?id=9fa848bce71ef1dcd98e",
     "/webfonts/fa-solid-900.woff": "/webfonts/fa-solid-900.woff?id=c537519aaad09a906ff4",
-    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2?id=206340e947cfe3960c53"
+    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2?id=206340e947cfe3960c53",
+    "/css/app.css": "/css/app.css?id=7d59a97dfe0764728ac9"
 }

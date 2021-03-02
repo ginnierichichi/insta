@@ -6,7 +6,7 @@
             <div class="text-gray-600">{{ auth()->user()->name }}</div>
         </div>
     </a>
-    <div class="pt-4 lg:pt-10">Suggestions For you</div>
+    <div class="pt-4 lg:pt-10">Suggestions for you</div>
     @foreach ($users as $user)
         @if(!auth()->user()->isFollowing($user))
             <li class="flex justify-between items-center">

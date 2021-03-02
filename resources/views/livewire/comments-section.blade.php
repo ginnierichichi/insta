@@ -14,7 +14,13 @@
         </div>
     </form>
 
-    @foreach($post->comments->sortDesc() as $comment)
+
+
+
+    <x-button.secondary wire:click="loadMore()" class="text-xs pt-2">Load more... </x-button.secondary>
+
+
+    @foreach($post->comments()->paginate(2) as $comment)
         <div class="rounded-lg border shadow py-1 px-3 my-2 text-xs">
             <div class="flex justify-between my-2">
 {{--                @dd($comment)--}}
