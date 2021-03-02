@@ -10,9 +10,12 @@ class Messages extends Component
 {
     public $chats;
     public $messages;
+    public $uuid;
 
-    public function mount(Collection $chats)
+    public function mount($message, Collection $chats)
     {
+        $this->uuid = $message;
+
         $this->chats = $chats;
     }
 

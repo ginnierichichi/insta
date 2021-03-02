@@ -9,6 +9,11 @@ class Message extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

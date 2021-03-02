@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Boxes;
+use App\Http\Livewire\Messages;
 use App\Http\Livewire\NewsFeed;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tags;
@@ -34,6 +35,7 @@ Route::get('boxes', Boxes::class)->name('boxes');
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/', NewsFeed::class)->name('feed');
     Route::get('/tags/{tag:name}', Tags::class)->name('tags');
-    Route::get('profile/{user:username}/messages', \App\Http\Livewire\Messages::class)->name('messages');
+    Route::get('profile/{user:username}/messages', Messages::class)->name('messages');
+    Route::get('profile/{user:username}/messages/{message:uuid}', Messages::class)->name('chat');
 });
 

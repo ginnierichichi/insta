@@ -2,7 +2,7 @@
     {{-- Be like water. --}}
     @if($chats->count())
         @foreach($chats as $chat)
-            <a href="#" class="block p-4 mb-2 bg-white rounded-lg">
+            <a href="{{ route('chat', ['user' => 'name', 'message' => $chat->uuid]) }}" class="block p-4 mb-2 bg-white rounded-lg">
                 <div class="font-semibold">
                     @foreach($chat->users as $user)
                         {{ $user->present()->name() }}{{ $loop->last ? null : ','  }}
