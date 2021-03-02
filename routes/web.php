@@ -34,5 +34,6 @@ Route::get('boxes', Boxes::class)->name('boxes');
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/', NewsFeed::class)->name('feed');
     Route::get('/tags/{tag:name}', Tags::class)->name('tags');
+    Route::get('profile/{user:username}/messages', \App\Http\Livewire\Messages::class)->name('messages');
 });
 
