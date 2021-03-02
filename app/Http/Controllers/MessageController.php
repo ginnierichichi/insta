@@ -16,11 +16,11 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Message::get();
+        $messages = $request->user()->messages;
 
-        return view('messages.index', compact('messages'));
+        return view('livewire.messages', compact('messages'));
     }
 
     /**

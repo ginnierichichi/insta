@@ -3,8 +3,10 @@
     @if($chats->count())
         @foreach($chats as $chat)
             <a href="#" class="block p-4 mb-2 bg-white rounded-lg">
-                <div>
-                    <span class="font-semibold">Me and Jo</span>
+                <div class="font-semibold">
+                    @foreach($chat->users as $user)
+                        {{ $user->present()->name() }}{{ $loop->last ? null : ','  }}
+                    @endforeach
                 </div>
                 <p>
                     <span>This is the body of the last message sent</span>

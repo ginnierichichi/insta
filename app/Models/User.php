@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Presenters\UserPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,30 +61,16 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class)->with('comments')->orderBy('created_at', 'desc');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function avatarUrl()
     {
         return  $this->avatar
             ? Storage::disk('avatars')->url($this->avatar)
             : 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
-    public function timeline()
-    {
-        $friends = $this->follows()->pluck('id');
 
-        return Post::whereIn('user_id', $friends)
-            ->orWhere('user_id', $this->id)
-            ->withLikes()
-            ->latest()->get();
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function likes()
@@ -99,9 +86,35 @@ class User extends Authenticatable
         return $like ? true : false;
     }
 
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->with('comments')->orderBy('created_at', 'desc');
+    }
+
+    public function present()
+    {
+        return new UserPresenter($this);
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function timeline()
+    {
+        $friends = $this->follows()->pluck('id');
+
+        return Post::whereIn('user_id', $friends)
+            ->orWhere('user_id', $this->id)
+            ->withLikes()
+            ->latest()->get();
+    }
+
 
 }
