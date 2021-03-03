@@ -1,10 +1,10 @@
 <div class="flex mb-2 justify-end">
     <div>
-        <img src="{{ $message->user->present()->avatar }}" class="w-10 h-10 rounded-full" />
+        <img src="{{ asset('avatars/' . $message->user->avatar) }}" class="w-10 h-10 rounded-full mr-4" />
     </div>
     <div>
         <div>
-            {{ $message->user->presents()->name }}
+            {{ $message->user->name }}
         </div>
         <div class="bg-insta p-2 text-white rounded-lg">
             {{ $message->body }}

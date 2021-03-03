@@ -7,12 +7,7 @@ use Livewire\Component;
 
 class MyMessage extends Component
 {
-    public $message;
-
-    public function mount(Message $message)
-    {
-        $this->message = $message;
-    }
+    public Message $message;
 
     public function render()
     {

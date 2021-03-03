@@ -2,8 +2,8 @@
     {{-- Be like water. --}}
     @if($chats->count())
         @foreach($chats as $chat)
-            <div wire:click="$emit('chatSelected', {{ $chat->uuid }})" >
-                <a href="{{ route('chat', ['user' => 'name', 'message' => $chat->uuid]) }}" class="block p-4 mb-2 bg-white rounded-lg">
+            <div>
+                <a href="{{ route('chat', ['user' => str_replace(' ', '', auth()->user()->name), 'chat' => $chat->uuid]) }}" class="block p-4 mb-2 bg-white rounded-lg">
                     <div class="font-semibold">
                         @foreach($chat->users as $user)
                             {{ $user->present()->name() }}{{ $loop->last ? null : ','  }}
