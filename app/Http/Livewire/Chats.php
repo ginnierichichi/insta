@@ -13,10 +13,11 @@ class Chats extends Component
     public $uuid;
     public $chat;
 
-    public function mount($message, Collection $chats)
+    public function mount($message, Collection $chats, Chat $chat)
     {
         $this->uuid = $message;
         $this->chats = $chats;
+        $this->chat = $chat;
     }
 
     public function render()
