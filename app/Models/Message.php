@@ -9,13 +9,13 @@ class Message extends Model
 {
     use HasFactory;
 
-    public function getRouteKeyName()
+    public function chat()
     {
-        return 'uuid';
+        $this->belongsTo(Chat::class);
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

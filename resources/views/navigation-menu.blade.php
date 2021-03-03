@@ -24,7 +24,7 @@
                             </x-jet-nav-link>
                         </div>
                         <div class="hidden sm:-my-px sm:ml-4 sm:flex">
-                            <x-jet-nav-link href="#" :active="request()->routeIs('messages')">
+                            <x-jet-nav-link href="{{ route('messages', ['user' => auth()->user()->username ]) }}" :active="request()->routeIs('messages')">
                                 <i class="far fa-paper-plane text-2xl"></i>
                             </x-jet-nav-link>
                         </div>

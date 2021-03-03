@@ -2,27 +2,27 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Message;
+use App\Models\Chat;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
-class Messages extends Component
+class Chats extends Component
 {
     public $chats;
     public $messages;
     public $uuid;
+    public $chat;
 
     public function mount($message, Collection $chats)
     {
         $this->uuid = $message;
-
         $this->chats = $chats;
     }
 
     public function render()
     {
-        return view('livewire.messages', [
-            'messages' => Message::with('users'),
+        return view('livewire.chats', [
+        'chats' => Chat::with('users')->get(),
         ]);
     }
 }

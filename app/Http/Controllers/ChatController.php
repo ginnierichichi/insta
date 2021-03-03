@@ -5,16 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
-class MessageController extends Controller
+class ChatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $messages = $request->user()->messages;
+
+        return view('livewire.messages', compact('messages'));
     }
 
     /**

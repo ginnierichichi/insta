@@ -68,6 +68,11 @@ class User extends Authenticatable
             : 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email)));
     }
 
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -88,7 +93,7 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->belongsToMany(Message::class);
+        return $this->hasMany(Message::class);
     }
 
     public function posts()
