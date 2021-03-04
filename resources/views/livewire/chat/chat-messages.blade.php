@@ -3,9 +3,9 @@
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
     @foreach($messages as $message)
         @if($message->isOwn())
-            <livewire:chat.my-message :message="$message" :key="{{ $message->id }}" />
+            <livewire:chat.my-message  wire:key="{{ $message->id }}" />
         @else
-            <livewire:chat.other-message :key="{{ $message->id }}" />
+            <livewire:chat.other-message wire:key="{{ $message->id }}" />
         @endif
     @endforeach
 </div>
