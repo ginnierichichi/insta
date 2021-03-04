@@ -13012,6 +13012,10 @@ select{
   height: 100vh;
 }
 
+.h-xl{
+  height: 96vh;
+}
+
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
@@ -51481,6 +51485,10 @@ img {
     height: 100vh;
   }
 
+  .sm\:h-xl{
+    height: 96vh;
+  }
+
   .sm\:text-xs{
     font-size: 0.75rem;
     line-height: 1rem;
@@ -83509,6 +83517,10 @@ img {
 
   .md\:h-screen{
     height: 100vh;
+  }
+
+  .md\:h-xl{
+    height: 96vh;
   }
 
   .md\:text-xs{
@@ -115541,6 +115553,10 @@ img {
     height: 100vh;
   }
 
+  .lg\:h-xl{
+    height: 96vh;
+  }
+
   .lg\:text-xs{
     font-size: 0.75rem;
     line-height: 1rem;
@@ -147571,6 +147587,10 @@ img {
     height: 100vh;
   }
 
+  .xl\:h-xl{
+    height: 96vh;
+  }
+
   .xl\:text-xs{
     font-size: 0.75rem;
     line-height: 1rem;
@@ -179599,6 +179619,10 @@ img {
 
   .\32xl\:h-screen{
     height: 100vh;
+  }
+
+  .\32xl\:h-xl{
+    height: 96vh;
   }
 
   .\32xl\:text-xs{

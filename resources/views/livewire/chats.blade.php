@@ -3,7 +3,7 @@
         <livewire:chat.chat-list :chats="$user->chats"/>
     </div>
     @if($selectedChat)
-    <div class="col-span-2 pt-2 h-screen">
+    <div class="col-span-2 pt-2 h-xl">
         <div class="bg-white rounded-lg w-3/4 p-4 h-full">
             <div >
                 <livewire:chat.chat-users  />
