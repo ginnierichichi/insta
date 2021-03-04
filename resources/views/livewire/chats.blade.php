@@ -1,23 +1,23 @@
-<div>
-    <div class="grid grid-cols-3 space-x-4">
-        <div>
-            <livewire:chat.chat-list :chats="$user->chats"/>
-        </div>
-        <div class="col-span-2">
-            This is the private message page
-            <div class="bg-white rounded-lg w-3/4 p-4">
-                <div>
-{{--                    <livewire:chat.chat-users  />--}}
-                </div>
-                <div class="overflow-scroll">
-                    <livewire:chat.chat-messages :messages="$messages"/>
-                </div>
-               <div>
-                   reply
-{{--                   <livewire:chat.reply :chat="$userchat"/>--}}
-               </div>
+<div class="grid grid-cols-3 space-x-4">
+    <div>
+        <livewire:chat.chat-list :chats="$user->chats"/>
+    </div>
+    @if($selectedChat)
+    <div class="col-span-2 pt-2 h-screen">
+        <div class="bg-white rounded-lg w-3/4 p-4 h-full">
+            <div >
+                <livewire:chat.chat-users  />
             </div>
+            <div class="h-5/6">
+                <livewire:chat.chat-messages :messages="$selectedChat->messages"/>
+            </div>
+           <div class="pt-6">
+               reply
+               <livewire:chat.reply :chat="$selectedChat"/>
+           </div>
         </div>
     </div>
-    {{-- In work, do what you enjoy. --}}
+    @endif
 </div>
+    {{-- In work, do what you enjoy. --}}
+

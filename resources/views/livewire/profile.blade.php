@@ -11,9 +11,6 @@
                     </x-button.link>
                 @endif
             </div>
-            <x-button.link wire:click="dispatchEvent" >
-                {{ __('Dispatch Event') }}
-            </x-button.link>
 
 {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
             <div class="grid grid-cols-3 gap-4 pt-4 border-b">

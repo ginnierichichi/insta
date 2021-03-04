@@ -21,7 +21,7 @@ class ChatMessages extends Component
     public function prependMessage($id)
     {
         //access messages collection
-        $this->messages->prepend(Message::find($id));
+        $this->messages->push(Message::find($id));
     }
 
     public function render()

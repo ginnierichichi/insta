@@ -1,12 +1,10 @@
-<div>
-    This is where the messages will go
+<div class="border-b overflow-scroll h-full py-4 inside">
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-
     @foreach($messages as $message)
         @if($message->isOwn())
-            <livewire:chat.my-message :message="$message" wire:key="{{ $message->id }}" />
+            <x-chats.message align="justify-end" colour="bg-insta" :message="$message" wire:key="{{ $message->id }}" />
         @else
-            <livewire:chat.other-message :message="$message" wire:key="{{ $message->id }}" />
+            <x-chats.message :message="$message" wire:key="{{ $message->id }}" />
         @endif
     @endforeach
 </div>

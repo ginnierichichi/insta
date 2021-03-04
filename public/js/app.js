@@ -3795,6 +3795,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
+$(function () {
+  $(".container").scrollTop($(".inside").height());
+});
 var sidebarBox = document.querySelector('#box'),
     sidebarBtn = document.querySelector('#btn'),
     pageWrapper = document.querySelector('#page-wrapper');

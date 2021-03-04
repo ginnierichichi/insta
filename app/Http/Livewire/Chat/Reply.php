@@ -3,17 +3,13 @@
 namespace App\Http\Livewire\Chat;
 
 use App\Models\Chat;
+use App\Models\Message;
 use Livewire\Component;
 
 class Reply extends Component
 {
-    public $body;
-    public $chat;
-
-    public function mount(Chat $chat)
-    {
-        $this->chat = $chat;
-    }
+    public $body = '';
+    public Chat $chat;
 
     public function reply()
     {
@@ -23,10 +19,13 @@ class Reply extends Component
 
         $message = $this->chat->messages()->create([
             'user_id' => auth()->id(),
+            'chat_id' => $this->chat->id,
             'body' => $this->body,
         ]);
 
         $this->emit('message.created', $message->id);
+
+        $this->body = '';
     }
 
     public function render()

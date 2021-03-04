@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/', NewsFeed::class)->name('feed');
     Route::get('/tags/{tag:name}', Tags::class)->name('tags');
     Route::get('profile/{user:username}/messages', Chats::class)->name('messages');
-    Route::get('profile/{user:username}/messages/{chat:id}', Chats::class)->name('chat');
+    Route::get('profile/{user:username}/messages/{chat:uuid}', Chats::class)->name('chat');
+
 });
 
