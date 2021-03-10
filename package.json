@@ -26,9 +26,15 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.2",
+        "cropperjs": "^1.5.11",
+        "echo": "^0.1.9",
         "filepond": "^4.25.1",
         "html-entities": "^1.4.0",
+        "laravel": "^0.0.1",
+        "laravel-echo": "^1.10.0",
         "nodemon": "^2.0.7",
+        "pusher-js": "^7.0.3",
         "websocket": "^1.0.33"
-    }
+    },
+    "name": "insta"
 }

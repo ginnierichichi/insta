@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Chat;
 
+use App\Events\Chats\MessageAdded;
 use App\Models\Chat;
 use App\Models\Message;
 use Livewire\Component;
@@ -22,6 +23,18 @@ class Reply extends Component
             'chat_id' => $this->chat->id,
             'body' => $this->body,
         ]);
+
+        $this->chat->update([
+            'last_message_at' => now(),
+        ]);
+
+        foreach ($this->chat->others as $user) {
+            $user->chats()->updateExistingPivot($this->chat, [
+               'read_at' => null,
+            ]);
+        }
+
+        broadcast(new MessageAdded($message))->toOthers();
 
         $this->emit('message.created', $message->id);
 

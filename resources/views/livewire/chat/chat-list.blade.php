@@ -1,25 +1,26 @@
 <div class="pt-1">
     <div>
-        <div>Search goes here</div>
+        <div class="w-1/2">
+            <x-input.text />
+        </div>
         <div>Creating new chats goes here</div>
     </div>
     @if($chats->count())
         @foreach($chats as $chat)
-{{--<<<<<<< HEAD--}}
-{{--            <div>--}}
-{{--                <a href="{{ route('chat', ['user' => str_replace(' ', '', auth()->user()->name), 'chat' => $chat->uuid]) }}" class="block p-4 mb-2 bg-white rounded-lg">--}}
-{{--=======--}}
             <div wire:key="{{ $chat->uuid }}" >
                 <a href="{{ route('chat', ['user' => auth()->user()->username, 'chat' => $chat->uuid]) }}" class="block p-4 mb-2 bg-white rounded-lg">
-
                     <div class="font-semibold">
                         @foreach($chat->users as $user)
                             {{ $user->present()->name() }}{{ $loop->last ? null : ','  }}
                         @endforeach
                     </div>
-                    <p>
+                    <p class="flex items-center">
+{{--                        @dd(optional($chat->pivot)->read_at)--}}
+                        @if(!optional($chat->pivot)->read_at)
 {{--                        @dd($chat->messages->last()->body)--}}
-                        {{ $chat->messages->last()->body ?? "" }}
+                            <span class="bg-insta mr-2 rounded-full w-2 h-2"></span>
+                        @endif
+                           <span>{{ $chat->messages->last()->body ?? "" }}</span>
                     </p>
                 </a>
             </div>

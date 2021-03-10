@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware('auth')->group(function () {
 Route::get('profile/{user:username}', Profile::class)->name('profile');
-Route::get('boxes', Boxes::class)->name('boxes');
+Route::get('avatar', \App\Http\Livewire\Avatar::class)->name('avatar');
 //Route::get('/', NewsFeed::class)->name('feed');
 //});
 

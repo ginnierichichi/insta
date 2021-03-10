@@ -61,6 +61,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function avatar()
+    {
+        if (!$this->avatar) {
+            return asset('storage/avatars/default.png');
+        }
+        return asset('storage/'. $this->avatar);
+    }
+
     public function avatarUrl()
     {
         return  $this->avatar
@@ -70,12 +78,17 @@ class User extends Authenticatable
 
     public function chats()
     {
-        return $this->belongsToMany(Chat::class);
+        return $this->belongsToMany(Chat::class)->withPivot('read_at');
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function inConversation($id)
+    {
+        return $this->chats->contains('id', $id);
     }
 
     public function likes()
