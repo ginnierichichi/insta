@@ -136,6 +136,7 @@
 {{--    </div>--}}
 
     <!-------- Edit Profile Modal -------------->
+
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
 
